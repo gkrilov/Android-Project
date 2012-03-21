@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="hello">Hello World, FinalProjectActivity!</string>
+    <string name="app_name">Unhealthy Droid No More!</string>
+    <string name="by">By: Greg Krilov Mohammed Buttu</string>
+    <string name="projectTitle">A way to manage calories</string>
+    <string name="titleTouch">Touch anywhere to begin!</string>
+
+</resources>
