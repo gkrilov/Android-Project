@@ -17,7 +17,7 @@
             
             
         </activity>
-        <activity android:name="MainMenu"></activity>
+        <activity android:name="finalProject.gregMo.MainMenu"></activity>
         
     </application>
 
