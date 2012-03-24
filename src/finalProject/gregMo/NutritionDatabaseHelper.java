@@ -18,6 +18,8 @@ public class NutritionDatabaseHelper extends SQLiteOpenHelper{
 	@Override
 	public void onCreate(SQLiteDatabase db) {
 		PersonalInformationTable.onCreate(db);
+		DateTable.onCreate(db);
+		DailyIntakeTable.onCreate(db);
 	}
 
 	@Override

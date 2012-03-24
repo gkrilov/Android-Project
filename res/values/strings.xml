@@ -6,7 +6,7 @@
     <string name="by">By: Greg Krilov Mohammed Buttu</string>
     <string name="projectTitle">A way to manage calories</string>
     <string name="titleTouch">Touch anywhere to begin!</string>
-    <string name="weightEnter">Welcome! Please enter your weight to obtain your daily maximums. If you have lost weight and would like to obtain new daily maximums, you can reset below.</string>
+    <string name="weightEnter">Welcome! Please enter your weight to obtain your daily maximums. If you have lost weight and would like to obtain new daily maximums, you can reset your weight below.</string>
     <string name="weightDigitsOnly">integer</string>
 
 </resources>

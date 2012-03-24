@@ -23,9 +23,11 @@ public class DailyIntakeTable {
 			+ COLUMN_TODAY_CARBSG + " text not null, "
 			+ COLUMN_TODAY_PROTEING + " text not null, "
 			+ COLUMN_TODAY_FIBERG + " text not null, "
+			+ COLUMN_TODAY_SFATG + " text not null, "
 			+ COLUMN_TODAY_CHOLESTEROL + " text not null, "
-			+ COLUMN_TODAY_SODIUM + " text not null"
-			
+			+ COLUMN_TODAY_SODIUM + " text not null, "
+			+ COLUMN_DATE_ID + " text not null, "
+			+ "FOREIGN KEY(" + COLUMN_DATE_ID + ") REFERENCES " + DateTable.TABLE_NAME + "(" + DateTable.COLUMN_ID + ")"  
 			+ ");";
 	
 	public static void onCreate(SQLiteDatabase db)
