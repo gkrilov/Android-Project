@@ -4,6 +4,7 @@
     android:versionName="1.0" xmlns:android="http://schemas.android.com/apk/res/android">
 
     <uses-sdk android:minSdkVersion="15" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application 
         android:icon="@drawable/ic_launcher"
@@ -18,6 +19,7 @@
         </activity>
         <activity android:name="finalProject.gregMo.MainMenu"></activity>
         <activity android:name="finalProject.gregMo.InitialInformation"></activity>
+        <activity android:name="finalProject.gregMo.BarChartActivity"></activity>
         <provider android:name="finalProject.gregMo.NutritionContentProvider" 
                   android:authorities="cs.ecl.android.provider.nutrition"></provider>
         
