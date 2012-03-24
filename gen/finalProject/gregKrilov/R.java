@@ -19,18 +19,21 @@ public final class R {
         public static final int wallpaper=0x7f020005;
     }
     public static final class id {
-        public static final int exercises=0x7f050002;
-        public static final int gridLayout1=0x7f050004;
-        public static final int introduction=0x7f050000;
-        public static final int nutrition=0x7f050001;
-        public static final int plan=0x7f050003;
-        public static final int textView1=0x7f050007;
-        public static final int textView2=0x7f050005;
-        public static final int textView3=0x7f050006;
+        public static final int daily=0x7f050005;
+        public static final int editText1=0x7f050001;
+        public static final int graph=0x7f050006;
+        public static final int gridLayout1=0x7f050007;
+        public static final int initialInfo=0x7f050004;
+        public static final int introduction=0x7f050003;
+        public static final int submit=0x7f050002;
+        public static final int textView1=0x7f050000;
+        public static final int textView2=0x7f050008;
+        public static final int textView3=0x7f050009;
     }
     public static final class layout {
-        public static final int main_menu=0x7f030000;
-        public static final int title=0x7f030001;
+        public static final int initial_information=0x7f030000;
+        public static final int main_menu=0x7f030001;
+        public static final int title=0x7f030002;
     }
     public static final class string {
         public static final int app_name=0x7f040001;
@@ -38,5 +41,7 @@ public final class R {
         public static final int hello=0x7f040000;
         public static final int projectTitle=0x7f040003;
         public static final int titleTouch=0x7f040004;
+        public static final int weightDigitsOnly=0x7f040006;
+        public static final int weightEnter=0x7f040005;
     }
 }

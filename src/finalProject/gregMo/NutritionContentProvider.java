@@ -17,7 +17,7 @@ public class NutritionContentProvider extends ContentProvider {
 	public static final String PROVIDER_NAME = "cs.ecl.android.provider.nutrition";
 	public static final String PERSONAL_INFO_TABLE = "personal_information";
 	
-	public static final Uri CONTENT_URI = Uri.parse("content://" +
+	public static final Uri CONTENT_URI_PERSONAL = Uri.parse("content://" +
 			PROVIDER_NAME + "/" + PERSONAL_INFO_TABLE );
 	
 	
@@ -71,18 +71,18 @@ public class NutritionContentProvider extends ContentProvider {
 		SQLiteDatabase nutritionDB = db.getWritableDatabase();
 		if ( uriMatcher.match(uri) == PERSONAL_INFO )
 		{
-			if ( (id = nutritionDB.insert(PersonalInformationTable.TABLE_NAME, "" , values)) > 0)
+			id = nutritionDB.insert(PersonalInformationTable.TABLE_NAME, "" , values);
+			if ( id > 0)
 			{
-				Uri _uri = ContentUris.withAppendedId(CONTENT_URI, id);
+				Uri _uri = ContentUris.withAppendedId(CONTENT_URI_PERSONAL, id);
 				getContext().getContentResolver().notifyChange(_uri, null);
 				return _uri;
 			}
 		}
 		
-		throw new SQLException("Faled to insert row into " + uri);
+		throw new SQLException("Failed to insert row into " + uri);
 		
 	}
-
 
 	@Override
 	public Cursor query(Uri uri, String[] projection, String selection,

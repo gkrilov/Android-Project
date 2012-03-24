@@ -7,12 +7,12 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class NutritionDatabaseHelper extends SQLiteOpenHelper{
 
-	private static final String DATABASE_NAME = "Soccer";
+	private static final String DATABASE_NAME = "Nutrition Database";
 	private static final int DATABASE_VERSION = 1;
 	
 	public NutritionDatabaseHelper(Context ctx)
 	{
-		super(ctx, DATABASE_NAME, null, DATABASE_VERSION);
+		super(ctx, DATABASE_NAME , null, DATABASE_VERSION);
 	}
 	
 	@Override

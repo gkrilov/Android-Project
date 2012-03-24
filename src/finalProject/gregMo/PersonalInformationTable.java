@@ -24,6 +24,7 @@ public class PersonalInformationTable {
 			+ COLUMN_MAX_CARBSG + " text not null, "
 			+ COLUMN_MAX_PROTEING + " text not null, "
 			+ COLUMN_MAX_FIBERG + " text not null, "
+			+ COLUMN_MAX_SFATG + " text not null, "
 			+ COLUMN_MAX_CHOLESTEROL + " text not null, "
 			+ COLUMN_MAX_SODIUM + " text not null"
 			+ ");";
