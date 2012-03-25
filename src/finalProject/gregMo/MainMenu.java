@@ -44,6 +44,10 @@ public class MainMenu extends Activity implements OnClickListener {
     		intent.setClass(this, InitialInformation.class);
     		startActivity(intent);
     		break;
+    	case R.id.graph:
+    		intent.setClass(this, BarChartActivity.class);
+    		startActivity(intent);
+    		break;
     	/*case R.id.button2:
     		intent.putExtra("button", 2);
     		startService(intent);
