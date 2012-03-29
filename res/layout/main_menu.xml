@@ -3,47 +3,101 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:alignmentMode="alignBounds"
+    android:clickable="true"
     android:columnCount="4"
-    android:rowCount="8"
     android:columnOrderPreserved="false"
-    android:useDefaultMargins="true" android:clickable="true">
+    android:rowCount="13"
+    android:useDefaultMargins="true" >
 
     <TextView
-            android:text="Main Menu"
-            android:textSize="32dip"
+        android:layout_column="0"
+        android:layout_columnSpan="4"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="35dp"
+        android:layout_row="0"
+        android:text="Main Menu"
+        android:textSize="32dip" />
 
-            android:layout_columnSpan="4"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="35dp"
-            />
+    <ImageButton
+        android:id="@+id/today"
+        android:layout_width="106dp"
+        android:layout_column="1"
+        android:layout_columnSpan="5"
+        android:layout_gravity="left"
+        android:layout_row="5"
+        android:layout_rowSpan="2"
+        android:background="@null"
+        android:src="@drawable/testapple" />
 
-    <Space android:layout_width="100dp" />
+    <TextView
+        android:id="@+id/todayDate"
+        android:layout_column="0"
+        android:layout_columnSpan="4"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="35dp"
+        android:layout_row="7"
+        android:text="Wednesday, 28 March 2012"
+        android:textSize="14dip" />
+
+    <Space
+        android:layout_width="100dp"
+        android:layout_column="0"
+        android:layout_row="1" />
 
     <ImageButton
         android:id="@+id/introduction"
         android:layout_column="1"
-        android:layout_row="2"
         android:layout_marginTop="50dp"
-        android:src="@drawable/icon_main" 
-        android:contentDescription="Introduce the app" android:background="@null" android:clickable="true"/>
+        android:layout_row="2"
+        android:background="@null"
+        android:clickable="true"
+        android:contentDescription="Introduce the app"
+        android:src="@drawable/icon_main" />
 
-	    <ImageButton
-	        android:id="@+id/initialInfo"
-	        android:layout_column="2"
-	        android:layout_marginTop="50dp"
-	        android:layout_row="2"
-	        android:src="@drawable/testapple" android:clickable="true" android:background="@null"/>
+    <ImageButton
+        android:id="@+id/initialInfo"
+        android:layout_column="2"
+        android:layout_marginTop="50dp"
+        android:layout_row="2"
+        android:background="@null"
+        android:clickable="true"
+        android:contentDescription="Enter your weight"
+        android:src="@drawable/testapple" />
 
-	    <ImageButton
-	        android:id="@+id/daily"
-	        android:layout_column="2"
-	        android:layout_row="3"
-	        android:src="@drawable/icon_main" android:background="@null"/>
+    <ImageButton
+        android:id="@+id/graph"
+        android:layout_column="2"
+        android:layout_row="3"
+        android:background="@null"
+        android:contentDescription="Results over time"
+        android:src="@drawable/icon_main" />
 
-	    <ImageButton
-	        android:id="@+id/graph"
-	        android:layout_column="1"
-	        android:layout_row="3"
-	        android:src="@drawable/dumbell" android:background="@null"/>
-	    
+    <ImageButton
+        android:id="@+id/daily"
+        android:layout_column="1"
+        android:layout_row="3"
+        android:background="@null"
+        android:contentDescription="Daily Progress"
+        android:src="@drawable/dumbell" />
+
+    <Space
+        android:layout_width="1dp"
+        android:layout_height="10dp"
+        android:layout_column="0"
+        android:layout_gravity="fill_horizontal"
+        android:layout_row="4" />
+
+    <Space
+        android:layout_width="1dp"
+        android:layout_height="34dp"
+        android:layout_column="0"
+        android:layout_row="6" />
+
+    <Space
+        android:layout_width="1dp"
+        android:layout_height="87dp"
+        android:layout_column="0"
+        android:layout_gravity="fill_horizontal"
+        android:layout_row="7" />
+
 </GridLayout>

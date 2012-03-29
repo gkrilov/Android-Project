@@ -8,5 +8,6 @@
     <string name="titleTouch">Touch anywhere to begin!</string>
     <string name="weightEnter">Welcome! Please enter your weight to obtain your daily maximums. If you have lost weight and would like to obtain new daily maximums, you can reset your weight below.</string>
     <string name="weightDigitsOnly">integer</string>
+    <string name="food_description">Add a new food item with it\'s nutritional values or select an existing one</string>
 
 </resources>

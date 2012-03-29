@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <GridLayout
+        android:id="@+id/gridLayout1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:columnCount="8"
+        android:rowCount="14" >
+
+        <ImageButton
+            android:id="@+id/graph"
+            android:layout_column="1"
+            android:layout_row="8"
+            android:background="@null"
+            android:contentDescription="See today's graph"
+            android:src="@drawable/icon_main" />
+
+        <ImageButton
+            android:id="@+id/addNew"
+            android:layout_column="2"
+            android:layout_gravity="left"
+            android:layout_row="8"
+            android:background="@null"
+            android:contentDescription="Add a food item"
+            android:src="@drawable/testapple" />
+
+        <ListView
+            android:id="@+id/foodList"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_column="0"
+            android:layout_columnSpan="3"
+            android:layout_row="10"
+            android:layout_rowSpan="2" >
+        </ListView>
+
+        <Space
+            android:layout_width="209dp"
+            android:layout_height="1dp"
+            android:layout_column="0"
+            android:layout_gravity="fill_horizontal"
+            android:layout_row="0" />
+
+        <Space
+            android:layout_width="50dp"
+            android:layout_height="1dp"
+            android:layout_column="1"
+            android:layout_gravity="fill_horizontal"
+            android:layout_row="0" />
+
+        <Space
+            android:layout_width="158dp"
+            android:layout_height="1dp"
+            android:layout_column="2"
+            android:layout_gravity="fill_horizontal"
+            android:layout_row="0" />
+
+        <Space
+            android:layout_width="1dp"
+            android:layout_height="21dp"
+            android:layout_column="0"
+            android:layout_gravity="fill_horizontal"
+            android:layout_row="0" />
+
+        <Space
+            android:layout_width="1dp"
+            android:layout_height="20dp"
+            android:layout_column="0"
+            android:layout_row="9" />
+
+        <Space
+            android:layout_width="1dp"
+            android:layout_height="46dp"
+            android:layout_column="0"
+            android:layout_row="10" />
+    </GridLayout>
+
+</LinearLayout>

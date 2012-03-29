@@ -1,6 +1,8 @@
 package finalProject.gregMo;
 
 import finalProject.gregKrilov.R;
+import finalProject.gregMo.database.NutritionContentProvider;
+import finalProject.gregMo.database.PersonalInformationTable;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.ContentValues;
