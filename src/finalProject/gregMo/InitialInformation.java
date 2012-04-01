@@ -7,13 +7,16 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.ContentValues;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.method.DigitsKeyListener;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 public class InitialInformation extends Activity implements OnClickListener {
 
@@ -33,8 +36,8 @@ public class InitialInformation extends Activity implements OnClickListener {
 
 		Cursor cursor = managedQuery(NutritionContentProvider.CONTENT_URI_PERSONAL, null, null, null, null);
 		//If there is already a record in the table then don't allow something to be entered in the edittext 
-		//and change the submit button into a reset buton
-		if ( cursor != null && cursor.moveToFirst() ) { 
+		//and change the submit button into a reset button
+		if ( cursor.moveToFirst() ) { 
 			
 		   weight.setText(cursor.getString(cursor
 					.getColumnIndex(PersonalInformationTable.COLUMN_WEIGHT)));
@@ -100,6 +103,24 @@ public class InitialInformation extends Activity implements OnClickListener {
 		     values.put(PersonalInformationTable.COLUMN_MAX_SODIUM,  sodium);
 		     getContentResolver().insert(NutritionContentProvider.CONTENT_URI_PERSONAL, values);	  
 		     
+		     AlertDialog.Builder alertDialog = new AlertDialog.Builder(InitialInformation.this);
+				alertDialog.setTitle("Thank you");
+				alertDialog.setMessage("Weight successfully entered");
+				
+				alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+		            public void onClick(DialogInterface dialog, int arg1) {
+		                Intent intent = new Intent(InitialInformation.this,MainMenu.class);
+		                startActivity(intent);
+		            }});
+				
+				alertDialog.setCancelable(false);
+				alertDialog.show();
+		 }
+		 else
+		 {
+			 TextView error = (TextView) findViewById(R.id.errorWeight);
+			 error.setTextColor(Color.RED);
+			 error.setText("Please enter your weight");
 		 }
 	}
 	
