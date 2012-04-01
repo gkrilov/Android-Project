@@ -1,7 +1,9 @@
 package finalProject.gregMo;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import finalProject.gregKrilov.R;
-import finalProject.gregMo.database.DailyIntakeTable;
 import finalProject.gregMo.database.DateTable;
 import finalProject.gregMo.database.FoodTable;
 import finalProject.gregMo.database.NutritionContentProvider;
@@ -11,6 +13,8 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ListAdapter;
@@ -23,6 +27,7 @@ public class Today extends Activity implements OnClickListener {
 	Cursor cursor;
 	String foodDate;
 	int dailyID;
+	int [] ids;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +46,7 @@ public class Today extends Activity implements OnClickListener {
 			//Get ID for the date selected
 			cursor = managedQuery(NutritionContentProvider.CONTENT_URI_DATE, new String[] {DateTable.COLUMN_ID}, 
 					DateTable.COLUMN_DATE + " = '" + foodDate + "'", null, null);
+			cursor.moveToFirst();
 		}
 		//Otherwise you came here from the today button on the main menu
 		//The last date in the dateTable is todays date therefore use that
@@ -50,21 +56,11 @@ public class Today extends Activity implements OnClickListener {
 	    	cursor = managedQuery(NutritionContentProvider.CONTENT_URI_DATE, null, null, null, null);
 	    	//Put the cursor at todays date
 	    	cursor.moveToLast();
+	    	foodDate = cursor.getString(cursor.getColumnIndex(DateTable.COLUMN_DATE));
 		}
 		
 		//ID for the date
-		int id = cursor.getInt(cursor.getColumnIndex(DateTable.COLUMN_ID)); 
-		
-		// ***************************************************
-		// * Get ID for the DailyTable for the date selected *
-		// ***************************************************
-		cursor = managedQuery(NutritionContentProvider.CONTENT_URI_DAILY, new String[] {DailyIntakeTable.COLUMN_ID}, 
-				DailyIntakeTable.COLUMN_DATE_ID + " = '" + id + "'", null, null);
-		
-		//Each daily has a date and each date always has a daily associated with its primary key
-		if ( cursor.moveToFirst() )
-			dailyID = cursor.getInt(cursor.getColumnIndex(DailyIntakeTable.COLUMN_ID));
-			
+		dailyID = cursor.getInt(cursor.getColumnIndex(DateTable.COLUMN_ID)); 
 		
 		food = (ListView) findViewById(R.id.foodList);
 		
@@ -73,10 +69,32 @@ public class Today extends Activity implements OnClickListener {
 				FoodTable.COLUMN_DAILY_ID + " = '" + dailyID + "'", null, null);
 		
 		//If there is something in it then present it
-		if (cursor.isFirst())
+		if (cursor.moveToFirst())
 		{
+			ids = new int[cursor.getCount()];
+			int i = 0;
 			ListAdapter foodAdapter = new SimpleCursorAdapter(this, android.R.layout.simple_list_item_1, cursor, new String [] {FoodTable.COLUMN_NAME}, new int [] {android.R.id.text1}, 2  );
 			food.setAdapter(foodAdapter);
+			
+			//Put the ids of todays food items in order
+			while ( !cursor.isAfterLast() )
+			{
+				ids[i++] = cursor.getInt(cursor.getColumnIndex(FoodTable.COLUMN_ID));
+				cursor.moveToNext();
+			}
+			
+			food.setOnItemClickListener( new OnItemClickListener() {
+
+				public void onItemClick(AdapterView<?> arg0, View v, int position, long id) {
+					Intent intent = new Intent();
+					intent.setClass(Today.this, AddFood.class);
+					intent.putExtra("id", ids[position]);
+					intent.putExtra("dailyID", dailyID);
+					intent.putExtra("date", foodDate);
+					intent.putExtra("update", true);
+					startActivity(intent);
+			}});
+
 		}
 		
 		//Otherwise create a blank adapter
@@ -99,6 +117,8 @@ public class Today extends Activity implements OnClickListener {
 		case R.id.addNew: 
 			intent.setClass(this, AddFood.class);
 			intent.putExtra("dailyID", dailyID);
+			intent.putExtra("date", foodDate);
+			intent.putExtra("update", false);
 			startActivity(intent);
 			break;
 		//Should not have to pass anything in here and should be able to simply

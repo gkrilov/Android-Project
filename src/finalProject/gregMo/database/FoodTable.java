@@ -15,12 +15,12 @@ public class FoodTable {
 	public static final String COLUMN_FOOD_SFATG = "saturated_grams";
 	public static final String COLUMN_FOOD_CHOLESTEROL = "cholesterol_grams";
 	public static final String COLUMN_FOOD_SODIUM = "sodium_grams";
-	public static final String COLUMN_FOOD_NOTE = "note";
 	public static final String COLUMN_DAILY_ID = "daily_id";
 	
 	private static final String DATABASE_CREATE = 
 			"create table " + TABLE_NAME + " ("
 			+ COLUMN_ID + " integer primary key autoincrement, "
+			+ COLUMN_NAME + " text not null, "
 			+ COLUMN_FOOD_CALORIES + " text not null, "
 			+ COLUMN_FOOD_FATG + " text not null, "
 			+ COLUMN_FOOD_CARBSG + " text not null, "
@@ -29,9 +29,8 @@ public class FoodTable {
 			+ COLUMN_FOOD_SFATG + " text not null, "
 			+ COLUMN_FOOD_CHOLESTEROL + " text not null, "
 			+ COLUMN_FOOD_SODIUM + " text not null, "
-			+ COLUMN_FOOD_NOTE + " text not null, "
-			+ COLUMN_DAILY_ID + " text not null, "
-			+ "FOREIGN KEY(" + COLUMN_DAILY_ID + ") REFERENCES " + DailyIntakeTable.TABLE_NAME + "(" + DateTable.COLUMN_ID + ")"  
+			+ COLUMN_DAILY_ID + " integer not null, "
+			+ "FOREIGN KEY(" + COLUMN_DAILY_ID + ") REFERENCES " + DateTable.TABLE_NAME + "(" + DateTable.COLUMN_ID + ")"  
 			+ ");";
 	
 	public static void onCreate(SQLiteDatabase db)

@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:alignmentMode="alignBounds"
     android:clickable="true"
-    android:columnCount="23"
+    android:columnCount="27"
     android:columnOrderPreserved="true"
     android:rowCount="15"
     android:useDefaultMargins="true" >
@@ -14,37 +14,46 @@
         android:layout_width="274dp"
         android:layout_height="wrap_content"
         android:layout_column="0"
-        android:layout_columnSpan="11"
+        android:layout_columnSpan="15"
         android:layout_gravity="center"
         android:layout_marginTop="15dp"
         android:layout_row="0"
         android:text="@string/food_description"
         android:textSize="14dp" />
-
+
+    <TextView
+        android:id="@+id/updateText"
+        android:layout_column="0"
+        android:layout_columnSpan="5"
+        android:layout_gravity="bottom|right"
+        android:layout_row="1"
+        android:text="Update Food"
+        android:textSize="36dp" />
+
     <ExpandableListView
         android:id="@+id/foodList"
         android:layout_width="283dp"
         android:layout_height="103dp"
         android:layout_column="0"
-        android:layout_columnSpan="13"
+        android:layout_columnSpan="17"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="15dp"
         android:layout_row="1"
         android:layout_rowSpan="2" >
-
     </ExpandableListView>
 
     <EditText
         android:id="@+id/name"
         android:layout_width="98dp"
-        android:maxWidth="98dp"
-        android:maxLines="1"
         android:layout_column="0"
-        android:layout_columnSpan="9"
+        android:layout_columnSpan="13"
         android:layout_marginLeft="20dp"
         android:layout_row="6"
         android:hint="Food Name"
-        android:textSize="14dp" android:maxLength="30">
+        android:maxLength="30"
+        android:maxLines="1"
+        android:maxWidth="98dp"
+        android:textSize="14dp" >
 
         <requestFocus />
     </EditText>
@@ -52,66 +61,71 @@
     <EditText
         android:id="@+id/calories"
         android:layout_width="75dp"
-        android:maxWidth="75dp"
-        android:maxLines="1"
         android:layout_column="1"
-        android:layout_columnSpan="2"
+        android:layout_columnSpan="5"
         android:layout_gravity="right"
         android:layout_row="6"
-        android:inputType="numberSigned"
         android:hint="Calories"
-        android:textSize="14dp" android:maxLength="4"/>
+        android:inputType="numberSigned"
+        android:maxLength="4"
+        android:maxLines="1"
+        android:maxWidth="75dp"
+        android:textSize="14dp" />
 
     <EditText
         android:id="@+id/fibre"
         android:layout_width="80dp"
-        android:maxWidth="80dp"
-        android:maxLines="1"
         android:layout_column="3"
-        android:layout_columnSpan="8"
+        android:layout_columnSpan="3"
         android:layout_marginLeft="-200dp"
         android:layout_row="6"
-        android:inputType="numberSigned"
         android:hint="Fibre (g)"
-        android:textSize="14dp" android:maxLength="3"/>
+        android:inputType="numberSigned"
+        android:maxLength="3"
+        android:maxLines="1"
+        android:maxWidth="80dp"
+        android:textSize="14dp" />
 
     <EditText
         android:id="@+id/gramsFat"
         android:layout_width="90dp"
-        android:maxWidth="80dp"
-        android:maxLines="1"
         android:layout_column="0"
-        android:inputType="numberSigned"
         android:layout_row="7"
         android:hint="Grams Fat"
-        android:textSize="14dp" android:maxLength="3">
+        android:inputType="numberSigned"
+        android:maxLength="3"
+        android:maxLines="1"
+        android:maxWidth="80dp"
+        android:textSize="14dp" >
 
         <requestFocus />
     </EditText>
-
+
     <EditText
         android:id="@+id/gramsSatFat"
         android:layout_width="156dp"
-        android:maxWidth="156dp"
-        android:maxLines="1"
-        android:inputType="numberSigned"
         android:layout_column="1"
-        android:layout_columnSpan="3"
+        android:layout_columnSpan="7"
         android:layout_row="7"
         android:hint="Saturated Fat (g)"
-        android:textSize="14dp" android:maxLength="3"/>
+        android:inputType="numberSigned"
+        android:maxLength="3"
+        android:maxLines="1"
+        android:maxWidth="156dp"
+        android:textSize="14dp" />
 
     <EditText
         android:id="@+id/carbsGram"
         android:layout_width="90dp"
-        android:maxWidth="90dp"
-        android:maxLines="1"
         android:layout_column="0"
-        android:inputType="numberSigned"
         android:layout_columnSpan="2"
         android:layout_row="8"
         android:hint="Carbs (g)"
-        android:textSize="14dp" android:maxLength="3">
+        android:inputType="numberSigned"
+        android:maxLength="3"
+        android:maxLines="1"
+        android:maxWidth="90dp"
+        android:textSize="14dp" >
 
         <requestFocus />
     </EditText>
@@ -119,54 +133,77 @@
     <EditText
         android:id="@+id/proteinGram"
         android:layout_width="156dp"
-        android:maxWidth="156dp"
-        android:maxLines="1"
         android:layout_column="1"
-        android:layout_columnSpan="3"
-        android:inputType="numberSigned"
+        android:layout_columnSpan="7"
         android:layout_row="8"
         android:hint="Protein (g)"
-        android:textSize="14dp" android:maxLength="3"/>
+        android:inputType="numberSigned"
+        android:maxLength="3"
+        android:maxLines="1"
+        android:maxWidth="156dp"
+        android:textSize="14dp" />
 
     <EditText
         android:id="@+id/cholesterol"
         android:layout_width="130dp"
-        android:maxWidth="130dp"
-        android:maxLines="1"
         android:layout_column="0"
-        android:layout_columnSpan="6"
-        android:inputType="numberSigned"
+        android:layout_columnSpan="10"
         android:layout_row="9"
         android:hint="Cholesterol (mg)"
-        android:textSize="14dp" android:maxLength="4">
+        android:inputType="numberSigned"
+        android:maxLength="4"
+        android:maxLines="1"
+        android:maxWidth="130dp"
+        android:textSize="14dp" >
 
         <requestFocus />
-    </EditText>
+    </EditText>
+
     <EditText
         android:id="@+id/sodium"
         android:layout_width="110dp"
-        android:maxLines="1"
-        android:layout_column="2"
+        android:layout_column="4"
         android:layout_columnSpan="2"
         android:layout_row="9"
-        android:inputType="numberSigned"
         android:hint="Sodium (mg)"
-        android:textSize="14dp" android:maxLength="4"/>
+        android:inputType="numberSigned"
+        android:maxLength="4"
+        android:maxLines="1"
+        android:textSize="14dp" />
 
-    <Button 
+    <Button
         android:id="@+id/submitFood"
-        android:text="Submit"
-        android:layout_row="10"
         android:layout_column="0"
-        />
-    
-   <TextView
+        android:layout_row="10"
+        android:text="Submit" />
+
+    <TextView
         android:id="@+id/error"
         android:layout_height="wrap_content"
         android:layout_column="1"
+        android:layout_columnSpan="5"
         android:layout_gravity="center"
         android:layout_marginTop="15dp"
         android:layout_row="10"
-        android:text="hello"
+        android:text="Please fill in all the fields"
         android:textSize="14dp" />
+
+    <Space
+        android:layout_width="10dp"
+        android:layout_height="1dp"
+        android:layout_column="2"
+        android:layout_row="0" />
+
+    <Space
+        android:layout_width="39dp"
+        android:layout_height="1dp"
+        android:layout_column="3"
+        android:layout_row="0" />
+
+    <Space
+        android:layout_width="20dp"
+        android:layout_height="1dp"
+        android:layout_column="4"
+        android:layout_row="0" />
+
 </GridLayout>

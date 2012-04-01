@@ -5,7 +5,6 @@ import java.util.GregorianCalendar;
 import java.util.TimeZone;
 
 import finalProject.gregKrilov.R;
-import finalProject.gregMo.database.DailyIntakeTable;
 import finalProject.gregMo.database.DateTable;
 import finalProject.gregMo.database.NutritionContentProvider;
 import android.app.Activity;
@@ -85,46 +84,29 @@ public class MainMenu extends Activity implements OnClickListener {
 		
 		textToday.setText(date_today.format(today.getTime()));
 		ContentValues values = new ContentValues();
-		Uri uri;
 		
     	Cursor cursor = managedQuery(NutritionContentProvider.CONTENT_URI_DATE, null, null, null, null);
+    	//If there is a date in the table
     	if ( cursor.moveToLast() )
     	{
     		lastDate = Integer.parseInt( cursor.getString(cursor
 					.getColumnIndex(DateTable.COLUMN_DATE)));
     		int todayDate = Integer.parseInt(date_format.format(today.getTime()));
+    		//Check if todays date is later than the last one in the table
     		if ( todayDate > lastDate)
     		{
         		values.put(DateTable.COLUMN_DATE, Integer.toString(todayDate));
-        		uri = getContentResolver().insert(NutritionContentProvider.CONTENT_URI_DATE, values);
-        		values.clear();
-        		values = getDaily(uri.getLastPathSegment());
-        		getContentResolver().insert(NutritionContentProvider.CONTENT_URI_DAILY, values);
+        		getContentResolver().insert(NutritionContentProvider.CONTENT_URI_DATE, values);
     		}
     	}
+    	//If there is nothing in the table then create a new date (today)
     	else
     	{
     		values.put(DateTable.COLUMN_DATE, date_format.format(today.getTime()));
-    		uri = getContentResolver().insert(NutritionContentProvider.CONTENT_URI_DATE, values);
-    		values.clear();
-    		values = getDaily(uri.getLastPathSegment());
-    		getContentResolver().insert(NutritionContentProvider.CONTENT_URI_DAILY, values);
+    		getContentResolver().insert(NutritionContentProvider.CONTENT_URI_DATE, values);
     	}
     }
     
-    public ContentValues getDaily(String id)
-    {
-    	 ContentValues values = new ContentValues();
-	     values.put(DailyIntakeTable.COLUMN_TODAY_CALORIES,  "0");
-	     values.put(DailyIntakeTable.COLUMN_TODAY_FATG,  "0");
-	     values.put(DailyIntakeTable.COLUMN_TODAY_CARBSG,  "0");
-	     values.put(DailyIntakeTable.COLUMN_TODAY_PROTEING, "0");
-	     values.put(DailyIntakeTable.COLUMN_TODAY_FIBERG,  "0");
-	     values.put(DailyIntakeTable.COLUMN_TODAY_SFATG,  "0");
-	     values.put(DailyIntakeTable.COLUMN_TODAY_CHOLESTEROL, "0");
-	     values.put(DailyIntakeTable.COLUMN_TODAY_SODIUM,  "0");
-	     values.put(DailyIntakeTable.COLUMN_DATE_ID, id);
-	     return values;
-    }
+
 	
 }
