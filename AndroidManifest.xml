@@ -4,28 +4,28 @@
     android:versionName="1.0" xmlns:android="http://schemas.android.com/apk/res/android">
 
     <uses-sdk android:minSdkVersion="15" />
-    <uses-permission android:name="android.permission.INTERNET" />
 
-    <application 
+    <application
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name" >
         <activity android:name="finalProject.gregMo.TitlePage">
-            
         <intent-filter>
             <action android:name="android.intent.action.MAIN" />
             <category android:name="android.intent.category.LAUNCHER" />
         </intent-filter>
-            
+
         </activity>
         <activity android:name="finalProject.gregMo.MainMenu"></activity>
         <activity android:name="finalProject.gregMo.InitialInformation"></activity>
         <activity android:name="finalProject.gregMo.BarChartActivity"></activity>
-        <provider android:name="finalProject.gregMo.database.NutritionContentProvider" 
-                  android:authorities="cs.ecl.android.provider.nutrition"></provider>
         <activity android:name="finalProject.gregMo.DailyInformation"></activity>
         <activity android:name="finalProject.gregMo.Today"></activity>
         <activity android:name="finalProject.gregMo.AddFood"></activity>
-        
+
+        <activity android:name="org.achartengine.GraphicalActivity" />
+
+        <provider android:name="finalProject.gregMo.database.NutritionContentProvider" 
+                  android:authorities="cs.ecl.android.provider.nutrition"></provider>
     </application>
 
 </manifest>

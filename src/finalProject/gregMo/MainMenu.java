@@ -54,7 +54,7 @@ public class MainMenu extends Activity implements OnClickListener {
     		startActivity(intent);
     		break;
     	case R.id.graph:
-    		intent.setClass(this, BarChartActivity.class);
+    		intent = new MeasurementsBarChart().execute(this);
     		startActivity(intent);
     		break;
     	case R.id.daily:
@@ -77,6 +77,8 @@ public class MainMenu extends Activity implements OnClickListener {
     	textToday = (TextView) findViewById(R.id.todayDate);
     	GregorianCalendar today = new GregorianCalendar();
     	
+    	// TODO: Make this a utility method somewhere
+    	// TODO: Take out underscores from var names to be consistent with rest of code
 		SimpleDateFormat date_format = new SimpleDateFormat("yyyyMMdd");
 		SimpleDateFormat date_today = new SimpleDateFormat("EEEE, dd MMMM yyyy");
 		date_format.setTimeZone(TimeZone.getTimeZone("EST"));
