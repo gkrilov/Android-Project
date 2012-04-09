@@ -4,19 +4,18 @@ import java.text.SimpleDateFormat;
 import java.util.GregorianCalendar;
 import java.util.TimeZone;
 
-import finalProject.gregKrilov.R;
-import finalProject.gregMo.database.DateTable;
-import finalProject.gregMo.database.NutritionContentProvider;
 import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import finalProject.gregKrilov.R;
+import finalProject.gregMo.database.DateTable;
+import finalProject.gregMo.database.NutritionContentProvider;
 
 public class MainMenu extends Activity implements OnClickListener {
 
@@ -54,7 +53,7 @@ public class MainMenu extends Activity implements OnClickListener {
     		startActivity(intent);
     		break;
     	case R.id.graph:
-    		intent.setClass(this, BarChartActivity.class);
+    		intent = new MeasurementsBarChart().execute(this);
     		startActivity(intent);
     		break;
     	case R.id.daily:
@@ -77,6 +76,8 @@ public class MainMenu extends Activity implements OnClickListener {
     	textToday = (TextView) findViewById(R.id.todayDate);
     	GregorianCalendar today = new GregorianCalendar();
     	
+    	// TODO: Make this a utility method somewhere
+    	// TODO: Take out underscores from var names to be consistent with rest of code
 		SimpleDateFormat date_format = new SimpleDateFormat("yyyyMMdd");
 		SimpleDateFormat date_today = new SimpleDateFormat("EEEE, dd MMMM yyyy");
 		date_format.setTimeZone(TimeZone.getTimeZone("EST"));
