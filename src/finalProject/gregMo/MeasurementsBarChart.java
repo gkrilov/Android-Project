@@ -15,10 +15,6 @@
  */
 package finalProject.gregMo;
 
-import finalProject.gregMo.database.FoodTable;
-import finalProject.gregMo.database.NutritionContentProvider;
-import finalProject.gregMo.database.PersonalInformationTable;
-
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
@@ -36,7 +32,9 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.graphics.Paint.Align;
-import android.util.Log;
+import finalProject.gregMo.database.FoodTable;
+import finalProject.gregMo.database.NutritionContentProvider;
+import finalProject.gregMo.database.PersonalInformationTable;
 
 /**
  * Measurements bar chart.
@@ -106,9 +104,7 @@ public class MeasurementsBarChart extends AbstractChart {
 	saturatedFatGrams = 0, 
 	cholesterol = 0, 
 	sodium = 0;
-	
-	Log.d("D", "id of date = " + id);
-	
+
 	cursor = context.getContentResolver().query(NutritionContentProvider.CONTENT_URI_FOOD, projection, FoodTable.COLUMN_DAILY_ID + " = ? ", new String[] { ("" + id) }, null);
 	
 	if (cursor != null) {

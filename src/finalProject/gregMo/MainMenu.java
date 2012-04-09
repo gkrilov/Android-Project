@@ -4,19 +4,18 @@ import java.text.SimpleDateFormat;
 import java.util.GregorianCalendar;
 import java.util.TimeZone;
 
-import finalProject.gregKrilov.R;
-import finalProject.gregMo.database.DateTable;
-import finalProject.gregMo.database.NutritionContentProvider;
 import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import finalProject.gregKrilov.R;
+import finalProject.gregMo.database.DateTable;
+import finalProject.gregMo.database.NutritionContentProvider;
 
 public class MainMenu extends Activity implements OnClickListener {
 

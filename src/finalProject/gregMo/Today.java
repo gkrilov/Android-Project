@@ -1,12 +1,5 @@
 package finalProject.gregMo;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import finalProject.gregKrilov.R;
-import finalProject.gregMo.database.DateTable;
-import finalProject.gregMo.database.FoodTable;
-import finalProject.gregMo.database.NutritionContentProvider;
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
@@ -20,6 +13,10 @@ import android.widget.ImageButton;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
+import finalProject.gregKrilov.R;
+import finalProject.gregMo.database.DateTable;
+import finalProject.gregMo.database.FoodTable;
+import finalProject.gregMo.database.NutritionContentProvider;
 
 public class Today extends Activity implements OnClickListener {
 

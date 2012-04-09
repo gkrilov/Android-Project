@@ -6,13 +6,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import finalProject.gregKrilov.R;
-import finalProject.gregMo.database.DateTable;
-import finalProject.gregMo.database.FoodTable;
-import finalProject.gregMo.database.NutritionContentProvider;
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.ExpandableListActivity;
 import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -22,15 +17,15 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.ExpandableListView.OnChildClickListener;
 import android.widget.SimpleExpandableListAdapter;
 import android.widget.TextView;
+import finalProject.gregKrilov.R;
+import finalProject.gregMo.database.FoodTable;
+import finalProject.gregMo.database.NutritionContentProvider;
 
 public class AddFood extends Activity {
 
