@@ -16,7 +16,7 @@
         android:id="@+id/editText1"
         android:layout_marginLeft="30dp"
         android:layout_width="193dp"
-        android:numeric="decimal"
+        android:inputType="numberDecimal"
         android:maxLength="5"
         android:maxLines="1"
         android:layout_height="wrap_content"/>

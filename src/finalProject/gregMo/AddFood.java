@@ -122,15 +122,15 @@ public class AddFood extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.add_food);
+		setContentView(R.layout.food_add);
 		
 		submitFood = (Button) findViewById(R.id.submitFood);
 		name = (EditText) findViewById(R.id.name);
 		calories = (EditText) findViewById(R.id.calories);
 		gramsFat = (EditText) findViewById(R.id.gramsFat);
-		gramsSatFat = (EditText) findViewById(R.id.gramsSatFat);
-		carbs = (EditText) findViewById(R.id.carbsGram);
-		protein = (EditText) findViewById(R.id.proteinGram);
+		gramsSatFat = (EditText) findViewById(R.id.satFatGrams);
+		carbs = (EditText) findViewById(R.id.carbs);
+		protein = (EditText) findViewById(R.id.protein);
 		cholesterol = (EditText) findViewById(R.id.cholesterol);
 		sodium = (EditText) findViewById(R.id.sodium);
 		fibre = (EditText) findViewById(R.id.fibre);

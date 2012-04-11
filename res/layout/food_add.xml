@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <TextView
+        android:id="@+id/description"
+        android:layout_width="294dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="5dp"
+        android:text="@string/food_description"
+        android:textSize="14dp" />
+
+    <ExpandableListView
+        android:id="@+id/foodList"
+        android:layout_width="293dp"
+        android:layout_height="103dp"
+        android:layout_alignRight="@+id/description"
+        android:layout_below="@+id/description"
+        android:layout_marginTop="10dp" >
+    </ExpandableListView>
+
+    <TextView 
+        android:id="@+id/updateText"
+        android:text="Update"
+        android:textSize="50dp"
+        android:layout_width="293dp"
+        android:layout_height="103dp"
+        android:layout_alignRight="@+id/description"
+        android:layout_below="@+id/description"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="70dp" 
+        />
+    
+    
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/foodList"
+        android:layout_below="@+id/foodList"
+        android:layout_marginTop="28dp"
+        android:text=" Food Name"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/textView1"
+        android:layout_alignBottom="@+id/textView1"
+        android:layout_alignRight="@+id/foodList"
+        android:layout_marginRight="44dp"
+        android:text="Calories"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <EditText
+        android:id="@+id/name"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/description"
+        android:layout_below="@+id/textView1"
+        android:maxLength="30"
+        android:maxLines="1"
+        android:inputType="text"
+        android:maxWidth="98dp" />
+
+    <EditText
+        android:id="@+id/calories"
+        android:layout_width="85dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/name"
+        android:layout_alignBottom="@+id/name"
+        android:layout_alignRight="@+id/textView8"
+        android:layout_toRightOf="@+id/textView4"
+        android:inputType="numberSigned"
+        android:maxLength="4"
+        android:maxLines="1" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/textView1"
+        android:layout_below="@+id/name"
+        android:layout_marginTop="20dp"
+        android:text="  Fat Grams"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <EditText
+        android:id="@+id/gramsFat"
+        android:layout_width="85dp"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/name"
+        android:layout_below="@+id/textView3" 
+        android:inputType="numberSigned"
+        android:maxLength="4"
+        android:maxLines="1" >
+
+        <requestFocus />
+    </EditText>
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/gramsFat"
+        android:layout_marginLeft="14dp"
+        android:layout_toRightOf="@+id/gramsFat"
+        android:text="Sat Fat Grams"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <EditText
+        android:id="@+id/satFatGrams"
+        android:layout_width="90dp"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/textView4"
+        android:layout_alignTop="@+id/gramsFat"
+        android:inputType="numberSigned"
+        android:maxLength="4"
+        android:maxLines="1" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/textView4"
+        android:layout_alignLeft="@+id/textView2"
+        android:layout_alignRight="@+id/foodList"
+        android:text="Sodium (mg)"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <EditText
+        android:id="@+id/sodium"
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/textView5"
+        android:layout_alignRight="@+id/textView5"
+        android:layout_below="@+id/textView5" 
+        android:inputType="numberSigned"
+        android:maxLength="4"
+        android:maxLines="1"
+        />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/textView3"
+        android:layout_below="@+id/satFatGrams"
+        android:layout_marginTop="18dp"
+        android:text="Cholesterol"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+    <EditText
+        android:id="@+id/cholesterol"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/gramsFat"
+        android:layout_below="@+id/textView6"
+        android:layout_toLeftOf="@+id/textView4"
+        android:inputType="numberSigned"
+        android:maxLength="4"
+        android:maxLines="1" />
+
+    <TextView
+        android:id="@+id/textView7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/cholesterol"
+        android:layout_alignLeft="@+id/satFatGrams"
+        android:text=" Fibre Grams"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <EditText
+        android:id="@+id/fibre"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/cholesterol"
+        android:layout_alignBottom="@+id/cholesterol"
+        android:layout_alignLeft="@+id/textView7"
+        android:layout_alignRight="@+id/satFatGrams"
+        android:inputType="numberSigned"
+        android:maxLength="4"
+        android:maxLines="1" />
+
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/fibre"
+        android:layout_alignLeft="@+id/sodium"
+        android:text="Protein Grams"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <EditText
+        android:id="@+id/protein"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/fibre"
+        android:layout_alignBottom="@+id/fibre"
+        android:layout_alignLeft="@+id/textView8"
+        android:layout_alignRight="@+id/sodium"
+        android:inputType="numberSigned"
+        android:maxLength="4"
+        android:maxLines="1" />
+
+    <TextView
+        android:id="@+id/textView9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/textView6"
+        android:layout_below="@+id/cholesterol"
+        android:layout_marginTop="10dp"
+        android:text="  Carbs"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <EditText
+        android:id="@+id/carbs"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/cholesterol"
+        android:layout_below="@+id/textView9"
+        android:layout_toLeftOf="@+id/textView4"
+        android:inputType="numberSigned"
+        android:maxLength="4"
+        android:maxLines="1" android:textSize="16dp"/>
+
+    <Button
+        android:id="@+id/submitFood"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/carbs"
+        android:layout_alignLeft="@+id/fibre"
+        android:text="Submit" />
+
+    <TextView
+        android:id="@+id/error"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/submitFood"
+        android:layout_alignLeft="@+id/protein"
+        android:layout_alignRight="@+id/textView8"
+        android:layout_alignTop="@+id/textView9"
+        android:textSize="12dp"/>
+
+</RelativeLayout>
