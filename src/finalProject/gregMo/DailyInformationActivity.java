@@ -22,6 +22,7 @@ import finalProject.gregMo.database.NutritionContentProvider;
 
 public class DailyInformationActivity extends ListActivity {
 	Cursor mCursor = null;
+	String todaysDate = null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +41,14 @@ public class DailyInformationActivity extends ListActivity {
 				Date date = null;
 				
 				try {
-					date = date_format_nice.parse(((TextView) view).getText().toString());
+					if ( ((TextView) view).getText().toString().equals("Today") )
+					{
+						date = date_format_nice.parse(todaysDate);
+					}
+					else
+					{
+						date = date_format_nice.parse(((TextView) view).getText().toString());
+					}
 				} catch (ParseException e) {
 					e.printStackTrace();
 				}
@@ -84,8 +92,17 @@ public class DailyInformationActivity extends ListActivity {
 						Date date = null;
 						
 						try {
-							date = date_format_together.parse(text);
-							formatedText = date_format_nice.format(date);
+							if ( mCursor.isFirst())
+							{
+								date = date_format_together.parse(text);
+								todaysDate = date_format_nice.format(date);
+								formatedText = "Today";
+							}
+							else
+							{
+								date = date_format_together.parse(text);
+								formatedText = date_format_nice.format(date);
+							}
 						} catch (ParseException e) {
 							e.printStackTrace();
 						}

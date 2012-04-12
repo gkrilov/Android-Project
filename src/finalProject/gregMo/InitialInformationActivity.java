@@ -85,8 +85,8 @@ public class InitialInformationActivity extends Activity implements OnClickListe
 			 int maxCalories =  (int) (Double.parseDouble(myWeight) * 18); 
 			 int gramFat = (int) (maxCalories * 0.3 / 9); //g
 			 int gramCarbs =(int) (maxCalories * 0.6 / 4); //g
-			 int gramProtein = (int)(maxCalories * 0.1 / 4); //g
-			 int gramFibre = (int) (maxCalories / 1000 * 11.5); //g
+			 int gramProtein = (int)(maxCalories * 0.1 / 4); //g=
+			 int gramFibre = (int)( (double) maxCalories / 1000.0 * 11.5); //g
 			 String saturatedFat = "20"; //g
 			 String cholesterol = "300"; //mg
 			 String sodium = "2400"; //mg

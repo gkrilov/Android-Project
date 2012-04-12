@@ -17,7 +17,6 @@ public class NutritionContentProvider extends ContentProvider {
 	public static final String PROVIDER_NAME = "cs.ecl.android.provider.nutrition";
 	public static final String PERSONAL_INFO_TABLE = "personal_information";
 	public static final String DATE_TABLE = "date";
-	//public static final String DAILY_TABLE = "daily_intake";
 	public static final String FOOD_TABLE = "food";
 
 	
@@ -25,8 +24,6 @@ public class NutritionContentProvider extends ContentProvider {
 			PROVIDER_NAME + "/" + PERSONAL_INFO_TABLE );
 	public static final Uri CONTENT_URI_DATE = Uri.parse("content://" +
 			PROVIDER_NAME + "/" + DATE_TABLE );
-	//public static final Uri CONTENT_URI_DAILY = Uri.parse("content://" +
-			//PROVIDER_NAME + "/" + DAILY_TABLE );
 	public static final Uri CONTENT_URI_FOOD = Uri.parse("content://" +
 			PROVIDER_NAME + "/" + FOOD_TABLE );
 	
@@ -35,8 +32,6 @@ public class NutritionContentProvider extends ContentProvider {
 	private static final int PERSONAL_INFO_ID = 2;
 	private static final int DATE = 3;
 	private static final int DATE_ID = 4;
-	//private static final int DAILY = 5;
-	//private static final int DAILY_ID = 6;
 	private static final int FOOD = 7;
 	private static final int FOOD_ID = 8;
 	
@@ -48,8 +43,6 @@ public class NutritionContentProvider extends ContentProvider {
 		uriMatcher.addURI(PROVIDER_NAME, PERSONAL_INFO_TABLE + "/#", PERSONAL_INFO_ID);
 		uriMatcher.addURI(PROVIDER_NAME, DATE_TABLE , DATE);
 		uriMatcher.addURI(PROVIDER_NAME, DATE_TABLE + "/#", DATE_ID);
-		//uriMatcher.addURI(PROVIDER_NAME, DAILY_TABLE , DAILY);
-		//uriMatcher.addURI(PROVIDER_NAME, DAILY_TABLE + "/#", DAILY_ID);
 		uriMatcher.addURI(PROVIDER_NAME, FOOD_TABLE , FOOD);
 		uriMatcher.addURI(PROVIDER_NAME, FOOD_TABLE + "/#", FOOD_ID);
 	}

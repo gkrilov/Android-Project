@@ -19,7 +19,6 @@ public class NutritionDatabaseHelper extends SQLiteOpenHelper{
 	public void onCreate(SQLiteDatabase db) {
 		PersonalInformationTable.onCreate(db);
 		DateTable.onCreate(db);
-//		DailyIntakeTable.onCreate(db);
 		FoodTable.onCreate(db);
 	}
 

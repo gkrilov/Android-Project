@@ -154,8 +154,8 @@ public class MeasurementsBarChart extends AbstractChart {
 		maxProteinGrams = Integer.parseInt(cursor.getString(cursor.getColumnIndexOrThrow(PersonalInformationTable.COLUMN_MAX_PROTEING)));
 		maxFiberGrams = Integer.parseInt(cursor.getString(cursor.getColumnIndexOrThrow(PersonalInformationTable.COLUMN_MAX_FIBERG)));
 		maxSaturatedFatGrams = Integer.parseInt(cursor.getString(cursor.getColumnIndexOrThrow(PersonalInformationTable.COLUMN_MAX_SFATG)));
-		maxCholesterol = maxCalories = Integer.parseInt(cursor.getString(cursor.getColumnIndexOrThrow(PersonalInformationTable.COLUMN_MAX_CHOLESTEROL)));
-		maxSodium = maxCalories = Integer.parseInt(cursor.getString(cursor.getColumnIndexOrThrow(PersonalInformationTable.COLUMN_MAX_SODIUM)));
+		maxCholesterol = Integer.parseInt(cursor.getString(cursor.getColumnIndexOrThrow(PersonalInformationTable.COLUMN_MAX_CHOLESTEROL)));
+		maxSodium = Integer.parseInt(cursor.getString(cursor.getColumnIndexOrThrow(PersonalInformationTable.COLUMN_MAX_SODIUM)));
 
 		cursor.close();
 	}
@@ -175,12 +175,12 @@ public class MeasurementsBarChart extends AbstractChart {
 
     renderer.setXLabels(1);
     renderer.setYLabels(10);
-    renderer.addXTextLabel(1, "Fibre (g)");
-    renderer.addXTextLabel(2, "Calories");
-    renderer.addXTextLabel(3, "Grams Fat");
-    renderer.addXTextLabel(4, "Sat. Fat (g)");
-    renderer.addXTextLabel(5, "Carbs (g)");
-    renderer.addXTextLabel(6, "Protein (g)");
+    renderer.addXTextLabel(1, "Calories");
+    renderer.addXTextLabel(2, "Grams Fat");
+    renderer.addXTextLabel(3, "Carbs (g)");
+    renderer.addXTextLabel(4, "Protein (g)");
+    renderer.addXTextLabel(5, "Fibre (g)");
+    renderer.addXTextLabel(6, "Sat. Fat (g)");
     renderer.addXTextLabel(7, "Cholesterol (mg)");
     renderer.addXTextLabel(8, "Sodium (mg)");
     renderer.setPanEnabled(false, true);
