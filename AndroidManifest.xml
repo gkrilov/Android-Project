@@ -15,12 +15,11 @@
         </intent-filter>
 
         </activity>
-        <activity android:name="finalProject.gregMo.MainMenu"></activity>
-        <activity android:name="finalProject.gregMo.InitialInformation"></activity>
-        <activity android:name="finalProject.gregMo.BarChartActivity"></activity>
-        <activity android:name="finalProject.gregMo.DailyInformation"></activity>
-        <activity android:name="finalProject.gregMo.Today"></activity>
-        <activity android:name="finalProject.gregMo.AddFood"></activity>
+        <activity android:name="finalProject.gregMo.MainMenuActivity"></activity>
+        <activity android:name="finalProject.gregMo.InitialInformationActivity"></activity>
+        <activity android:name="finalProject.gregMo.DailyInformationActivity"></activity>
+        <activity android:name="finalProject.gregMo.TodayActivity" android:noHistory="true"></activity>
+        <activity android:name="finalProject.gregMo.AddFoodActivity" android:noHistory="true"></activity>
 
         <activity android:name="org.achartengine.GraphicalActivity" />
 

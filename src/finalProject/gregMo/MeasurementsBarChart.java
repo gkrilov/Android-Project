@@ -32,6 +32,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.graphics.Paint.Align;
+import finalProject.gregMo.database.DateTable;
 import finalProject.gregMo.database.FoodTable;
 import finalProject.gregMo.database.NutritionContentProvider;
 import finalProject.gregMo.database.PersonalInformationTable;
