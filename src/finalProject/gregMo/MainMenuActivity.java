@@ -64,9 +64,10 @@ public class MainMenuActivity extends Activity implements OnClickListener {
     		intent.setClass(this, TodayActivity.class);
     		startActivity(intent);
     		break;
-//    	case R.id.button3:
-//    		stopService(intent);
-//    		break; */
+    	case R.id.introduction:
+    		intent.setClass(this, AppInformationActivity.class);
+    		startActivity(intent);
+    		break;
       	}
     }
 
@@ -88,28 +89,28 @@ public class MainMenuActivity extends Activity implements OnClickListener {
 		
     	Cursor cursor = getContentResolver().query(NutritionContentProvider.CONTENT_URI_DATE, null, null, null, null);
     	//If there is a date in the table
-    	if (cursor != null)
-    	{
-    		cursor.moveToLast();
-    		lastDate = Integer.parseInt( cursor.getString(cursor
-					.getColumnIndex(DateTable.COLUMN_DATE)));
-    		int todayDate = Integer.parseInt(date_format.format(today.getTime()));
-    		//Check if todays date is later than the last one in the table
-    		if ( todayDate > lastDate)
-    		{
-        		values.put(DateTable.COLUMN_DATE, Integer.toString(todayDate));
-        		getContentResolver().insert(NutritionContentProvider.CONTENT_URI_DATE, values);
-    		}
-    		cursor.close();
-    	}
-    	//If there is nothing in the table then create a new date (today)
-    	else
-    	{
-    		values.put(DateTable.COLUMN_DATE, date_format.format(today.getTime()));
-    		getContentResolver().insert(NutritionContentProvider.CONTENT_URI_DATE, values);
-    	}
+    	if ( cursor != null )
+	    {
+	    	if (cursor.moveToLast())
+	    	{
+	    		lastDate = Integer.parseInt( cursor.getString(cursor
+						.getColumnIndex(DateTable.COLUMN_DATE)));
+	    		int todayDate = Integer.parseInt(date_format.format(today.getTime()));
+	    		//Check if todays date is later than the last one in the table
+	    		if ( todayDate > lastDate)
+	    		{
+	        		values.put(DateTable.COLUMN_DATE, Integer.toString(todayDate));
+	        		getContentResolver().insert(NutritionContentProvider.CONTENT_URI_DATE, values);
+	    		}
+	    		cursor.close();
+	    	}
+	    	//If there is nothing in the table then create a new date (today)
+	    	else
+	    	{
+	    		values.put(DateTable.COLUMN_DATE, date_format.format(today.getTime()));
+	    		getContentResolver().insert(NutritionContentProvider.CONTENT_URI_DATE, values);
+	    	}
+	    }
     }
     
-
-	
 }

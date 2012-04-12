@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="29dp"
+        android:layout_marginTop="26dp"
+        android:text="Welcome!"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/textView1"
+        android:layout_below="@+id/textView1"
+        android:layout_marginTop="30dp"
+        android:text="You are about to take the first step to managing your nutrition and staying healthy. Unhealthy Droid No More is an application designed to help you see the maximum nutrition you should have in a day as well as help you track how much you have eaten. Everytime you add a food item, its nutritional information will be added to your daily total and using the graph feature you will be able to see where you are at the moment. You can also use the graph to see how much you have eaten yesterday, last week, and the entire month.  Have fun and stay healthy!"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+</RelativeLayout>

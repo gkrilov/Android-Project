@@ -167,9 +167,8 @@ public class AddFoodActivity extends Activity {
 		        
 		        Cursor foodCursor = getContentResolver().query(NutritionContentProvider.CONTENT_URI_FOOD, null, null, null, null);
 
-		        if (foodCursor != null)
+		        if (foodCursor.moveToFirst())
 		        {
-		        	foodCursor.moveToFirst();
 		        	ids = new int[foodCursor.getCount()];
 		        	int i = 0;
 		            group.put("title", "Food List");

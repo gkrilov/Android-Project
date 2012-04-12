@@ -20,6 +20,7 @@
         <activity android:name="finalProject.gregMo.DailyInformationActivity"></activity>
         <activity android:name="finalProject.gregMo.TodayActivity" android:noHistory="true"></activity>
         <activity android:name="finalProject.gregMo.AddFoodActivity" android:noHistory="true"></activity>
+        <activity android:name="finalProject.gregMo.AppInformationActivity"></activity>
 
         <activity android:name="org.achartengine.GraphicalActivity" />
 

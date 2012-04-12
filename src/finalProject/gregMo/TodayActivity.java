@@ -71,45 +71,47 @@ public class TodayActivity extends Activity implements OnClickListener {
 				FoodTable.COLUMN_DAILY_ID + " = '" + dailyID + "'", null, null);
 		
 		//If there is something in it then present it
-		if (cursor != null)
+		if ( cursor != null )
 		{
-			cursor.moveToFirst();
-			ids = new int[cursor.getCount()];
-			int i = 0;
-			ListAdapter foodAdapter = new SimpleCursorAdapter(this, android.R.layout.simple_list_item_1, cursor, new String [] {FoodTable.COLUMN_NAME}, new int [] {android.R.id.text1}, 2  );
-			food.setAdapter(foodAdapter);
-			
-			//Put the ids of todays food items in order
-			while ( !cursor.isAfterLast() )
+			if ( cursor.moveToFirst() )
 			{
-				ids[i++] = cursor.getInt(cursor.getColumnIndex(FoodTable.COLUMN_ID));
-				cursor.moveToNext();
+				ids = new int[cursor.getCount()];
+				int i = 0;
+				ListAdapter foodAdapter = new SimpleCursorAdapter(this, android.R.layout.simple_list_item_1, cursor, new String [] {FoodTable.COLUMN_NAME}, new int [] {android.R.id.text1}, 2  );
+				food.setAdapter(foodAdapter);
+				
+				//Put the ids of todays food items in order
+				while ( !cursor.isAfterLast() )
+				{
+					ids[i++] = cursor.getInt(cursor.getColumnIndex(FoodTable.COLUMN_ID));
+					cursor.moveToNext();
+				}
+				
+				food.setOnItemClickListener( new OnItemClickListener() {
+	
+					public void onItemClick(AdapterView<?> arg0, View v, int position, long id) {
+						Intent intent = new Intent();
+						intent.setClass(TodayActivity.this, AddFoodActivity.class);
+						intent.putExtra("id", ids[position]);
+						intent.putExtra("dailyID", dailyID);
+						intent.putExtra("date", foodDate);
+						intent.putExtra("update", true);
+						startActivity(intent);
+				}});
 			}
 			
-			food.setOnItemClickListener( new OnItemClickListener() {
-
-				public void onItemClick(AdapterView<?> arg0, View v, int position, long id) {
-					Intent intent = new Intent();
-					intent.setClass(TodayActivity.this, AddFoodActivity.class);
-					intent.putExtra("id", ids[position]);
-					intent.putExtra("dailyID", dailyID);
-					intent.putExtra("date", foodDate);
-					intent.putExtra("update", true);
-					startActivity(intent);
-			}});
-		}
-		
-		//Otherwise create a blank adapter
-		else
-		{
-			food.setAdapter(new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, new String[] {"Add a food using the above button"}));
-		}
+			//Otherwise create a blank adapter
+			else
+			{
+				food.setAdapter(new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, new String[] {"Add a food using the above button"}));
+			}
+				
+			ImageButton addFood = (ImageButton) findViewById(R.id.addNew);
+			ImageButton dateGraph = (ImageButton) findViewById(R.id.graph);
 			
-		ImageButton addFood = (ImageButton) findViewById(R.id.addNew);
-		ImageButton dateGraph = (ImageButton) findViewById(R.id.graph);
-		
-		addFood.setOnClickListener(this);
-		dateGraph.setOnClickListener(this);
+			addFood.setOnClickListener(this);
+			dateGraph.setOnClickListener(this);
+		}
 	}
 
 
