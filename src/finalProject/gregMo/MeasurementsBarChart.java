@@ -62,7 +62,7 @@ public class MeasurementsBarChart extends AbstractChart {
    * @return the built intent
    */
   public Intent execute(Context context) {
-    String[] titles = new String[] { "Recommended Intake", "My Intake" };
+    String[] titles = new String[] { "My Intake", "Recommended Intake" };
 
 	String[] projection = { 
 			DateTable.COLUMN_ID 
@@ -109,17 +109,18 @@ public class MeasurementsBarChart extends AbstractChart {
 	cursor = context.getContentResolver().query(NutritionContentProvider.CONTENT_URI_FOOD, projection, FoodTable.COLUMN_DAILY_ID + " = ? ", new String[] { ("" + id) }, null);
 	
 	if (cursor != null) {
-		cursor.moveToFirst();
-		
-		calories = Integer.parseInt(cursor.getString(cursor.getColumnIndexOrThrow(FoodTable.COLUMN_FOOD_CALORIES)));
-		fatGrams = Integer.parseInt(cursor.getString(cursor.getColumnIndexOrThrow(FoodTable.COLUMN_FOOD_FATG)));
-		carbsGrams = Integer.parseInt(cursor.getString(cursor.getColumnIndexOrThrow(FoodTable.COLUMN_FOOD_CARBSG)));
-		proteinGrams = Integer.parseInt(cursor.getString(cursor.getColumnIndexOrThrow(FoodTable.COLUMN_FOOD_PROTEING)));
-		fiberGrams = Integer.parseInt(cursor.getString(cursor.getColumnIndexOrThrow(FoodTable.COLUMN_FOOD_FIBERG)));
-		saturatedFatGrams = Integer.parseInt(cursor.getString(cursor.getColumnIndexOrThrow(FoodTable.COLUMN_FOOD_SFATG)));
-		cholesterol = Integer.parseInt(cursor.getString(cursor.getColumnIndexOrThrow(FoodTable.COLUMN_FOOD_CHOLESTEROL)));
-		sodium = Integer.parseInt(cursor.getString(cursor.getColumnIndexOrThrow(FoodTable.COLUMN_FOOD_SODIUM)));
-		
+		if(cursor.moveToFirst()) {
+			do {
+				calories += Integer.parseInt(cursor.getString(cursor.getColumnIndexOrThrow(FoodTable.COLUMN_FOOD_CALORIES)));
+				fatGrams += Integer.parseInt(cursor.getString(cursor.getColumnIndexOrThrow(FoodTable.COLUMN_FOOD_FATG)));
+				carbsGrams += Integer.parseInt(cursor.getString(cursor.getColumnIndexOrThrow(FoodTable.COLUMN_FOOD_CARBSG)));
+				proteinGrams += Integer.parseInt(cursor.getString(cursor.getColumnIndexOrThrow(FoodTable.COLUMN_FOOD_PROTEING)));
+				fiberGrams += Integer.parseInt(cursor.getString(cursor.getColumnIndexOrThrow(FoodTable.COLUMN_FOOD_FIBERG)));
+				saturatedFatGrams += Integer.parseInt(cursor.getString(cursor.getColumnIndexOrThrow(FoodTable.COLUMN_FOOD_SFATG)));
+				cholesterol += Integer.parseInt(cursor.getString(cursor.getColumnIndexOrThrow(FoodTable.COLUMN_FOOD_CHOLESTEROL)));
+				sodium += Integer.parseInt(cursor.getString(cursor.getColumnIndexOrThrow(FoodTable.COLUMN_FOOD_SODIUM)));
+			} while (cursor.moveToNext());
+		}
 		cursor.close();
 	}
 	
@@ -161,7 +162,6 @@ public class MeasurementsBarChart extends AbstractChart {
 	}
 	
     List<double[]> values = new ArrayList<double[]>();
-    //values.add(new double[] { 5230, 7300, 9240, 10540, 7900, 9200, 12030, 11200 });
     values.add(new double[]{ calories, fatGrams, carbsGrams, proteinGrams, fiberGrams, saturatedFatGrams, cholesterol, sodium }); 
     values.add(new double[] { maxCalories, maxFatGrams, maxCarbsGrams, maxProteinGrams, maxFiberGrams, maxSaturatedFatGrams, maxCholesterol, maxSodium });
     
@@ -170,7 +170,7 @@ public class MeasurementsBarChart extends AbstractChart {
     XYMultipleSeriesRenderer renderer = buildBarRenderer(colors);
     renderer.setOrientation(Orientation.VERTICAL);
     
-    setChartSettings(renderer, "Recommended Intake vs. My Intake", "Measurements", "Units", 0.5,
+    setChartSettings(renderer, "My Intake vs. Recommended Intake", "Measurements", "Units", 0.5,
         12.5, 0, 3000, Color.GRAY, Color.LTGRAY);
 
     renderer.setXLabels(1);
