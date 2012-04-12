@@ -13,7 +13,7 @@ public class FirstActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
-		Intent intent = new Intent(this, MainMenu.class);
+		Intent intent = new Intent(this, MainMenuActivity.class);
 		
 		String[] projection = {
 				PersonalInformationTable.COLUMN_WEIGHT
@@ -25,7 +25,7 @@ public class FirstActivity extends Activity {
 			cursor.moveToFirst();
 			
 			if (cursor.getCount() == 0) {
-				intent = new Intent(this, InitialInformation.class);
+				intent = new Intent(this, InitialInformationActivity.class);
 			}
 
 			cursor.close();

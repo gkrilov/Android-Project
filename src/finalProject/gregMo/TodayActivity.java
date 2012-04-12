@@ -18,7 +18,7 @@ import finalProject.gregMo.database.DateTable;
 import finalProject.gregMo.database.FoodTable;
 import finalProject.gregMo.database.NutritionContentProvider;
 
-public class Today extends Activity implements OnClickListener {
+public class TodayActivity extends Activity implements OnClickListener {
 
 	ListView food;
 	Cursor cursor;
@@ -28,7 +28,6 @@ public class Today extends Activity implements OnClickListener {
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.daily_food);
 	
@@ -41,19 +40,25 @@ public class Today extends Activity implements OnClickListener {
 		{
 			foodDate = dateExtra.getString("date");
 			//Get ID for the date selected
-			cursor = managedQuery(NutritionContentProvider.CONTENT_URI_DATE, new String[] {DateTable.COLUMN_ID}, 
+			cursor = getContentResolver().query(NutritionContentProvider.CONTENT_URI_DATE, new String[] {DateTable.COLUMN_ID}, 
 					DateTable.COLUMN_DATE + " = '" + foodDate + "'", null, null);
-			cursor.moveToFirst();
+			
+			if (cursor != null) {
+				cursor.moveToFirst();
+			}
 		}
 		//Otherwise you came here from the today button on the main menu
 		//The last date in the dateTable is todays date therefore use that
 		else
 		{
 			//Get a cursor of dates
-	    	cursor = managedQuery(NutritionContentProvider.CONTENT_URI_DATE, null, null, null, null);
-	    	//Put the cursor at todays date
-	    	cursor.moveToLast();
-	    	foodDate = cursor.getString(cursor.getColumnIndex(DateTable.COLUMN_DATE));
+	    	cursor = getContentResolver().query(NutritionContentProvider.CONTENT_URI_DATE, null, null, null, null);
+	    	
+	    	if (cursor != null) {
+	    		//Put the cursor at todays date
+	    		cursor.moveToLast();
+	    		foodDate = cursor.getString(cursor.getColumnIndex(DateTable.COLUMN_DATE));
+	    	}
 		}
 		
 		//ID for the date
@@ -62,12 +67,13 @@ public class Today extends Activity implements OnClickListener {
 		food = (ListView) findViewById(R.id.foodList);
 		
 		//Get a cursor for all food items which have a FK ID of the current daily ID
-		cursor = managedQuery(NutritionContentProvider.CONTENT_URI_FOOD, null, 
+		cursor = getContentResolver().query(NutritionContentProvider.CONTENT_URI_FOOD, null, 
 				FoodTable.COLUMN_DAILY_ID + " = '" + dailyID + "'", null, null);
 		
 		//If there is something in it then present it
-		if (cursor.moveToFirst())
+		if (cursor != null)
 		{
+			cursor.moveToFirst();
 			ids = new int[cursor.getCount()];
 			int i = 0;
 			ListAdapter foodAdapter = new SimpleCursorAdapter(this, android.R.layout.simple_list_item_1, cursor, new String [] {FoodTable.COLUMN_NAME}, new int [] {android.R.id.text1}, 2  );
@@ -84,14 +90,13 @@ public class Today extends Activity implements OnClickListener {
 
 				public void onItemClick(AdapterView<?> arg0, View v, int position, long id) {
 					Intent intent = new Intent();
-					intent.setClass(Today.this, AddFood.class);
+					intent.setClass(TodayActivity.this, AddFoodActivity.class);
 					intent.putExtra("id", ids[position]);
 					intent.putExtra("dailyID", dailyID);
 					intent.putExtra("date", foodDate);
 					intent.putExtra("update", true);
 					startActivity(intent);
 			}});
-
 		}
 		
 		//Otherwise create a blank adapter
@@ -107,12 +112,19 @@ public class Today extends Activity implements OnClickListener {
 		dateGraph.setOnClickListener(this);
 	}
 
+
+	@Override
+	protected void onStop() {
+		super.onStop();
+		cursor.close();
+	}
+	
 	public void onClick(View v) {
 		Intent intent = new Intent();
 		switch (v.getId())
 		{
 		case R.id.addNew: 
-			intent.setClass(this, AddFood.class);
+			intent.setClass(this, AddFoodActivity.class);
 			intent.putExtra("dailyID", dailyID);
 			intent.putExtra("date", foodDate);
 			intent.putExtra("update", false);

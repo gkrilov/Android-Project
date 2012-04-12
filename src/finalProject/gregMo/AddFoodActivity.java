@@ -27,7 +27,7 @@ import finalProject.gregKrilov.R;
 import finalProject.gregMo.database.FoodTable;
 import finalProject.gregMo.database.NutritionContentProvider;
 
-public class AddFood extends Activity {
+public class AddFoodActivity extends Activity {
 
 	int dailyID;
 	int foodID;
@@ -68,7 +68,7 @@ public class AddFood extends Activity {
 					food.put(FoodTable.COLUMN_FOOD_FIBERG,  fibre.getText().toString());
 
 					//Create an alert dialog
-					AlertDialog.Builder alertDialog = new AlertDialog.Builder(AddFood.this);
+					AlertDialog.Builder alertDialog = new AlertDialog.Builder(AddFoodActivity.this);
 					if ( getIntent().getExtras().getBoolean("update") == false)
 					{
 							food.put(FoodTable.COLUMN_DAILY_ID,  dailyID);
@@ -85,7 +85,7 @@ public class AddFood extends Activity {
 							
 					alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
 				           public void onClick(DialogInterface dialog, int arg1) {
-			            	Intent intent = new Intent(AddFood.this, Today.class);
+			            	Intent intent = new Intent(AddFoodActivity.this, TodayActivity.class);
 			            	intent.putExtra("date", getIntent().getExtras().getString("date"));
 			            	startActivity(intent);
 			       	}});
@@ -101,18 +101,22 @@ public class AddFood extends Activity {
 		public boolean onChildClick(ExpandableListView parent, View v,
 				int groupPosition, int childPosition, long id) {
 			
-			Cursor itemWithID = managedQuery(Uri.parse(NutritionContentProvider.CONTENT_URI_FOOD + "/" + ids[childPosition])
+			Cursor cursor = getContentResolver().query(Uri.parse(NutritionContentProvider.CONTENT_URI_FOOD + "/" + ids[childPosition])
 					, null, null, null, null);
-			itemWithID.moveToFirst();
-			name.setText(itemWithID.getString(itemWithID.getColumnIndex(FoodTable.COLUMN_NAME)));
-			calories.setText(itemWithID.getString(itemWithID.getColumnIndex(FoodTable.COLUMN_FOOD_CALORIES)));
-			gramsFat.setText(itemWithID.getString(itemWithID.getColumnIndex(FoodTable.COLUMN_FOOD_FATG)));
-			gramsSatFat.setText(itemWithID.getString(itemWithID.getColumnIndex(FoodTable.COLUMN_FOOD_SFATG)));
-			sodium.setText(itemWithID.getString(itemWithID.getColumnIndex(FoodTable.COLUMN_FOOD_SODIUM)));
-			protein.setText(itemWithID.getString(itemWithID.getColumnIndex(FoodTable.COLUMN_FOOD_PROTEING)));
-			cholesterol.setText(itemWithID.getString(itemWithID.getColumnIndex(FoodTable.COLUMN_FOOD_CHOLESTEROL)));
-			fibre.setText(itemWithID.getString(itemWithID.getColumnIndex(FoodTable.COLUMN_FOOD_FIBERG)));
-			carbs.setText(itemWithID.getString(itemWithID.getColumnIndex(FoodTable.COLUMN_FOOD_CARBSG)));
+			
+			if (cursor != null) {
+				cursor.moveToFirst();
+				name.setText(cursor.getString(cursor.getColumnIndex(FoodTable.COLUMN_NAME)));
+				calories.setText(cursor.getString(cursor.getColumnIndex(FoodTable.COLUMN_FOOD_CALORIES)));
+				gramsFat.setText(cursor.getString(cursor.getColumnIndex(FoodTable.COLUMN_FOOD_FATG)));
+				gramsSatFat.setText(cursor.getString(cursor.getColumnIndex(FoodTable.COLUMN_FOOD_SFATG)));
+				sodium.setText(cursor.getString(cursor.getColumnIndex(FoodTable.COLUMN_FOOD_SODIUM)));
+				protein.setText(cursor.getString(cursor.getColumnIndex(FoodTable.COLUMN_FOOD_PROTEING)));
+				cholesterol.setText(cursor.getString(cursor.getColumnIndex(FoodTable.COLUMN_FOOD_CHOLESTEROL)));
+				fibre.setText(cursor.getString(cursor.getColumnIndex(FoodTable.COLUMN_FOOD_FIBERG)));
+				carbs.setText(cursor.getString(cursor.getColumnIndex(FoodTable.COLUMN_FOOD_CARBSG)));
+				cursor.close();
+			}
 			
 			return true;
 		}
@@ -161,9 +165,11 @@ public class AddFood extends Activity {
 		        Map<String, String> group = new HashMap<String, String>();
 		        List<Map<String, String>> children = new ArrayList<Map<String, String>>();
 		        
-		        Cursor foodCursor = managedQuery(NutritionContentProvider.CONTENT_URI_FOOD, null, null, null, null);
-		        if (foodCursor.moveToFirst())
+		        Cursor foodCursor = getContentResolver().query(NutritionContentProvider.CONTENT_URI_FOOD, null, null, null, null);
+
+		        if (foodCursor != null)
 		        {
+		        	foodCursor.moveToFirst();
 		        	ids = new int[foodCursor.getCount()];
 		        	int i = 0;
 		            group.put("title", "Food List");
@@ -185,6 +191,7 @@ public class AddFood extends Activity {
 		            childData.add(children);
 		            
 		            foodList.setOnChildClickListener(clickedFoodListener);
+		            foodCursor.close();
 		        }
 		        else
 		        {
@@ -207,20 +214,24 @@ public class AddFood extends Activity {
 				foodID = extras.getInt("id");
 				submitFood.setOnClickListener(submitFoodListener);
 				//Set textfields to have things in them based on the passed in ID
-				Cursor itemWithID = managedQuery(Uri.parse(NutritionContentProvider.CONTENT_URI_FOOD + "/" + foodID)
+				Cursor cursor = managedQuery(Uri.parse(NutritionContentProvider.CONTENT_URI_FOOD + "/" + foodID)
 						, null, null, null, null);
-				itemWithID.moveToFirst();
-				//Now get the item and put its things in the textfields
-				//itemWithID
-				name.setText(itemWithID.getString(itemWithID.getColumnIndex(FoodTable.COLUMN_NAME)));
-				calories.setText(itemWithID.getString(itemWithID.getColumnIndex(FoodTable.COLUMN_FOOD_CALORIES)));
-				gramsFat.setText(itemWithID.getString(itemWithID.getColumnIndex(FoodTable.COLUMN_FOOD_FATG)));
-				gramsSatFat.setText(itemWithID.getString(itemWithID.getColumnIndex(FoodTable.COLUMN_FOOD_SFATG)));
-				sodium.setText(itemWithID.getString(itemWithID.getColumnIndex(FoodTable.COLUMN_FOOD_SODIUM)));
-				protein.setText(itemWithID.getString(itemWithID.getColumnIndex(FoodTable.COLUMN_FOOD_PROTEING)));
-				cholesterol.setText(itemWithID.getString(itemWithID.getColumnIndex(FoodTable.COLUMN_FOOD_CHOLESTEROL)));
-				fibre.setText(itemWithID.getString(itemWithID.getColumnIndex(FoodTable.COLUMN_FOOD_FIBERG)));
-				carbs.setText(itemWithID.getString(itemWithID.getColumnIndex(FoodTable.COLUMN_FOOD_CARBSG)));
+				
+				if (cursor != null) {
+					cursor.moveToFirst();
+					//Now get the item and put its things in the textfields
+					//itemWithID
+					name.setText(cursor.getString(cursor.getColumnIndex(FoodTable.COLUMN_NAME)));
+					calories.setText(cursor.getString(cursor.getColumnIndex(FoodTable.COLUMN_FOOD_CALORIES)));
+					gramsFat.setText(cursor.getString(cursor.getColumnIndex(FoodTable.COLUMN_FOOD_FATG)));
+					gramsSatFat.setText(cursor.getString(cursor.getColumnIndex(FoodTable.COLUMN_FOOD_SFATG)));
+					sodium.setText(cursor.getString(cursor.getColumnIndex(FoodTable.COLUMN_FOOD_SODIUM)));
+					protein.setText(cursor.getString(cursor.getColumnIndex(FoodTable.COLUMN_FOOD_PROTEING)));
+					cholesterol.setText(cursor.getString(cursor.getColumnIndex(FoodTable.COLUMN_FOOD_CHOLESTEROL)));
+					fibre.setText(cursor.getString(cursor.getColumnIndex(FoodTable.COLUMN_FOOD_FIBERG)));
+					carbs.setText(cursor.getString(cursor.getColumnIndex(FoodTable.COLUMN_FOOD_CARBSG)));
+					cursor.close();
+				}
 			}
 		}
 	}	

@@ -18,14 +18,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-public class InitialInformation extends Activity implements OnClickListener {
+public class InitialInformationActivity extends Activity implements OnClickListener {
 
 	EditText weight; 
 	Button submit;
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.initial_information);
 		
@@ -34,11 +33,11 @@ public class InitialInformation extends Activity implements OnClickListener {
 		weight = (EditText) findViewById(R.id.editText1);
 		weight.setKeyListener(DigitsKeyListener.getInstance(false,true));
 
-		Cursor cursor = managedQuery(NutritionContentProvider.CONTENT_URI_PERSONAL, null, null, null, null);
+		Cursor cursor = getContentResolver().query(NutritionContentProvider.CONTENT_URI_PERSONAL, null, null, null, null);
 		//If there is already a record in the table then don't allow something to be entered in the edittext 
 		//and change the submit button into a reset button
-		if ( cursor.moveToFirst() ) { 
-			
+		if (cursor != null) { 
+		   cursor.moveToFirst();
 		   weight.setText(cursor.getString(cursor
 					.getColumnIndex(PersonalInformationTable.COLUMN_WEIGHT)));
 		   weight.setFocusable(false);
@@ -46,7 +45,7 @@ public class InitialInformation extends Activity implements OnClickListener {
 		   submit.setText("Reset");
 		   submit.setOnClickListener( new OnClickListener() {
 				public void onClick(View v) {
-					AlertDialog.Builder alertDialog = new AlertDialog.Builder(InitialInformation.this);
+					AlertDialog.Builder alertDialog = new AlertDialog.Builder(InitialInformationActivity.this);
 					alertDialog.setTitle("Confirm Reset Weight");
 					alertDialog.setMessage("Are you sure you want to reset your weight?");
 					
@@ -56,7 +55,7 @@ public class InitialInformation extends Activity implements OnClickListener {
 			                weight.setText("");
 			                weight.setFocusable(true);
 			                submit.setText("Submit");
-			                submit.setOnClickListener(InitialInformation.this);
+			                submit.setOnClickListener(InitialInformationActivity.this);
 			            }});
 					
 					alertDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -66,7 +65,8 @@ public class InitialInformation extends Activity implements OnClickListener {
 					alertDialog.setCancelable(true);
 					alertDialog.show();
 				}
-		   });   
+		   });
+		   cursor.close();
 		}
 		else
 		{
@@ -103,13 +103,13 @@ public class InitialInformation extends Activity implements OnClickListener {
 		     values.put(PersonalInformationTable.COLUMN_MAX_SODIUM,  sodium);
 		     getContentResolver().insert(NutritionContentProvider.CONTENT_URI_PERSONAL, values);	  
 		     
-		     AlertDialog.Builder alertDialog = new AlertDialog.Builder(InitialInformation.this);
+		     AlertDialog.Builder alertDialog = new AlertDialog.Builder(InitialInformationActivity.this);
 				alertDialog.setTitle("Thank you");
 				alertDialog.setMessage("Weight successfully entered");
 				
 				alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
 		            public void onClick(DialogInterface dialog, int arg1) {
-		                Intent intent = new Intent(InitialInformation.this,MainMenu.class);
+		                Intent intent = new Intent(InitialInformationActivity.this,MainMenuActivity.class);
 		                startActivity(intent);
 		            }});
 				

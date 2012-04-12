@@ -17,7 +17,7 @@ import finalProject.gregKrilov.R;
 import finalProject.gregMo.database.DateTable;
 import finalProject.gregMo.database.NutritionContentProvider;
 
-public class MainMenu extends Activity implements OnClickListener {
+public class MainMenuActivity extends Activity implements OnClickListener {
 
 	TextView textToday;
 	
@@ -49,7 +49,7 @@ public class MainMenu extends Activity implements OnClickListener {
     	switch (v.getId())
     	{
     	case R.id.initialInfo:
-    		intent.setClass(this, InitialInformation.class);
+    		intent.setClass(this, InitialInformationActivity.class);
     		startActivity(intent);
     		break;
     	case R.id.graph:
@@ -57,11 +57,11 @@ public class MainMenu extends Activity implements OnClickListener {
     		startActivity(intent);
     		break;
     	case R.id.daily:
-    		intent.setClass(this, DailyInformation.class);
+    		intent.setClass(this, DailyInformationActivity.class);
     		startActivity(intent);
     		break;
     	case R.id.today:
-    		intent.setClass(this, Today.class);
+    		intent.setClass(this, TodayActivity.class);
     		startActivity(intent);
     		break;
 //    	case R.id.button3:
@@ -86,10 +86,11 @@ public class MainMenu extends Activity implements OnClickListener {
 		textToday.setText(date_today.format(today.getTime()));
 		ContentValues values = new ContentValues();
 		
-    	Cursor cursor = managedQuery(NutritionContentProvider.CONTENT_URI_DATE, null, null, null, null);
+    	Cursor cursor = getContentResolver().query(NutritionContentProvider.CONTENT_URI_DATE, null, null, null, null);
     	//If there is a date in the table
-    	if ( cursor.moveToLast() )
+    	if (cursor != null)
     	{
+    		cursor.moveToLast();
     		lastDate = Integer.parseInt( cursor.getString(cursor
 					.getColumnIndex(DateTable.COLUMN_DATE)));
     		int todayDate = Integer.parseInt(date_format.format(today.getTime()));
@@ -99,6 +100,7 @@ public class MainMenu extends Activity implements OnClickListener {
         		values.put(DateTable.COLUMN_DATE, Integer.toString(todayDate));
         		getContentResolver().insert(NutritionContentProvider.CONTENT_URI_DATE, values);
     		}
+    		cursor.close();
     	}
     	//If there is nothing in the table then create a new date (today)
     	else
