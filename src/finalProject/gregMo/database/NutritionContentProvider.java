@@ -198,11 +198,6 @@ public class NutritionContentProvider extends ContentProvider {
 			break;
 		}
 		
-//		if ( TextUtils.isEmpty(sortOrder))
-//		{
-//			sortOrder = "DESC";
-//		}
-		
 		Cursor cl = builder.query(nutritionDB , projection, 
 				selection, selectionArgs, null, null, sortOrder);
 		cl.setNotificationUri(getContext().getContentResolver(), uri);
