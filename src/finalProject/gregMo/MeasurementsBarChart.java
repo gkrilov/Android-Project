@@ -15,8 +15,10 @@
  */
 package finalProject.gregMo;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.TimeZone;
@@ -59,9 +61,14 @@ public class MeasurementsBarChart extends AbstractChart {
    * Executes the chart.
    * 
    * @param context the context
+   * @param from from date (yyyyMMdd)
+   * @param to to date (yyyyMMdd)
    * @return the built intent
    */
-  public Intent execute(Context context) {
+  public Intent execute(Context context, String from, String to) {
+	String dateRange = "Today";
+	long multiplier = 1;
+	
     String[] titles = new String[] { "My Intake", "Recommended Intake" };
 
 	String[] projection = { 
@@ -76,11 +83,69 @@ public class MeasurementsBarChart extends AbstractChart {
 	
 	String date = date_format.format(today.getTime());
 	
-	Cursor cursor = context.getContentResolver().query(NutritionContentProvider.CONTENT_URI_DATE, projection, DateTable.COLUMN_DATE + " = ?", new String[] { date }, null);
+	Cursor dateCursor = null;
+	
+	if (from == null && to == null) {
+		dateCursor = context.getContentResolver().query(NutritionContentProvider.CONTENT_URI_DATE, projection, DateTable.COLUMN_DATE + " = ?", new String[] { date }, null);
+	}
+	else {
+		SimpleDateFormat date_format_short = new SimpleDateFormat("MMMM dd");
+		date_format_short.setTimeZone(TimeZone.getTimeZone("EST"));
+		
+		try {
+			Date fromDate = date_format.parse(from);
+			Date toDate = date_format.parse(to);
+
+			dateRange = date_format_short.format(fromDate) + " - " + date_format_short.format(toDate);
+			multiplier = ((toDate.getTime() - fromDate.getTime()) / (1000 * 60 * 60 * 24));
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		dateCursor = context.getContentResolver().query(NutritionContentProvider.CONTENT_URI_DATE, projection, DateTable.COLUMN_DATE + " BETWEEN ? AND ?", new String[] { from, to }, null);
+	}
+	
+	int calories = 0, 
+	fatGrams = 0, 
+	carbsGrams = 0, 
+	proteinGrams = 0, 
+	fiberGrams = 0, 
+	saturatedFatGrams = 0, 
+	cholesterol = 0, 
+	sodium = 0;
+
+	long maxCalories = 0, 
+	maxFatGrams = 0, 
+	maxCarbsGrams = 0, 
+	maxProteinGrams = 0, 
+	maxFiberGrams = 0, 
+	maxSaturatedFatGrams = 0, 
+	maxCholesterol = 0, 
+	maxSodium = 0;
+	
+	projection = new String[] {
+			PersonalInformationTable.COLUMN_MAX_CALORIES,
+			PersonalInformationTable.COLUMN_MAX_FATG,
+			PersonalInformationTable.COLUMN_MAX_CARBSG,
+			PersonalInformationTable.COLUMN_MAX_PROTEING,
+			PersonalInformationTable.COLUMN_MAX_FIBERG,
+			PersonalInformationTable.COLUMN_MAX_SFATG,
+			PersonalInformationTable.COLUMN_MAX_CHOLESTEROL,
+			PersonalInformationTable.COLUMN_MAX_SODIUM
+	};
+	
+	Cursor cursor = context.getContentResolver().query(NutritionContentProvider.CONTENT_URI_PERSONAL, projection, null, null, null);
+	
 	if (cursor != null) {
 		cursor.moveToFirst();
-
-		id = cursor.getInt(cursor.getColumnIndexOrThrow(DateTable.COLUMN_ID));
+		
+		maxCalories = Integer.parseInt(cursor.getString(cursor.getColumnIndexOrThrow(PersonalInformationTable.COLUMN_MAX_CALORIES))) * multiplier;
+		maxFatGrams = Integer.parseInt(cursor.getString(cursor.getColumnIndexOrThrow(PersonalInformationTable.COLUMN_MAX_FATG))) * multiplier;
+		maxCarbsGrams = Integer.parseInt(cursor.getString(cursor.getColumnIndexOrThrow(PersonalInformationTable.COLUMN_MAX_CARBSG))) * multiplier;
+		maxProteinGrams = Integer.parseInt(cursor.getString(cursor.getColumnIndexOrThrow(PersonalInformationTable.COLUMN_MAX_PROTEING))) * multiplier;
+		maxFiberGrams = Integer.parseInt(cursor.getString(cursor.getColumnIndexOrThrow(PersonalInformationTable.COLUMN_MAX_FIBERG))) * multiplier;
+		maxSaturatedFatGrams = Integer.parseInt(cursor.getString(cursor.getColumnIndexOrThrow(PersonalInformationTable.COLUMN_MAX_SFATG))) * multiplier;
+		maxCholesterol = Integer.parseInt(cursor.getString(cursor.getColumnIndexOrThrow(PersonalInformationTable.COLUMN_MAX_CHOLESTEROL))) * multiplier;
+		maxSodium = Integer.parseInt(cursor.getString(cursor.getColumnIndexOrThrow(PersonalInformationTable.COLUMN_MAX_SODIUM))) * multiplier;
 		
 		cursor.close();
 	}
@@ -97,69 +162,32 @@ public class MeasurementsBarChart extends AbstractChart {
 			FoodTable.COLUMN_FOOD_SODIUM
 	};
 	
-	int calories = 0, 
-	fatGrams = 0, 
-	carbsGrams = 0, 
-	proteinGrams = 0, 
-	fiberGrams = 0, 
-	saturatedFatGrams = 0, 
-	cholesterol = 0, 
-	sodium = 0;
+	if (dateCursor != null && dateCursor.moveToFirst()) {
+		do {
+			id = dateCursor.getInt(dateCursor.getColumnIndexOrThrow(DateTable.COLUMN_ID));
 
-	cursor = context.getContentResolver().query(NutritionContentProvider.CONTENT_URI_FOOD, projection, FoodTable.COLUMN_DAILY_ID + " = ? ", new String[] { ("" + id) }, null);
-	
-	if (cursor != null) {
-		if(cursor.moveToFirst()) {
-			do {
-				calories += Integer.parseInt(cursor.getString(cursor.getColumnIndexOrThrow(FoodTable.COLUMN_FOOD_CALORIES)));
-				fatGrams += Integer.parseInt(cursor.getString(cursor.getColumnIndexOrThrow(FoodTable.COLUMN_FOOD_FATG)));
-				carbsGrams += Integer.parseInt(cursor.getString(cursor.getColumnIndexOrThrow(FoodTable.COLUMN_FOOD_CARBSG)));
-				proteinGrams += Integer.parseInt(cursor.getString(cursor.getColumnIndexOrThrow(FoodTable.COLUMN_FOOD_PROTEING)));
-				fiberGrams += Integer.parseInt(cursor.getString(cursor.getColumnIndexOrThrow(FoodTable.COLUMN_FOOD_FIBERG)));
-				saturatedFatGrams += Integer.parseInt(cursor.getString(cursor.getColumnIndexOrThrow(FoodTable.COLUMN_FOOD_SFATG)));
-				cholesterol += Integer.parseInt(cursor.getString(cursor.getColumnIndexOrThrow(FoodTable.COLUMN_FOOD_CHOLESTEROL)));
-				sodium += Integer.parseInt(cursor.getString(cursor.getColumnIndexOrThrow(FoodTable.COLUMN_FOOD_SODIUM)));
-			} while (cursor.moveToNext());
-		}
-		cursor.close();
+			cursor = context.getContentResolver().query(NutritionContentProvider.CONTENT_URI_FOOD, projection, FoodTable.COLUMN_DAILY_ID + " = ? ", new String[] { ("" + id) }, null);
+			
+			if (cursor != null) {
+				if(cursor.moveToFirst()) {
+					do {
+						calories += Integer.parseInt(cursor.getString(cursor.getColumnIndexOrThrow(FoodTable.COLUMN_FOOD_CALORIES)));
+						fatGrams += Integer.parseInt(cursor.getString(cursor.getColumnIndexOrThrow(FoodTable.COLUMN_FOOD_FATG)));
+						carbsGrams += Integer.parseInt(cursor.getString(cursor.getColumnIndexOrThrow(FoodTable.COLUMN_FOOD_CARBSG)));
+						proteinGrams += Integer.parseInt(cursor.getString(cursor.getColumnIndexOrThrow(FoodTable.COLUMN_FOOD_PROTEING)));
+						fiberGrams += Integer.parseInt(cursor.getString(cursor.getColumnIndexOrThrow(FoodTable.COLUMN_FOOD_FIBERG)));
+						saturatedFatGrams += Integer.parseInt(cursor.getString(cursor.getColumnIndexOrThrow(FoodTable.COLUMN_FOOD_SFATG)));
+						cholesterol += Integer.parseInt(cursor.getString(cursor.getColumnIndexOrThrow(FoodTable.COLUMN_FOOD_CHOLESTEROL)));
+						sodium += Integer.parseInt(cursor.getString(cursor.getColumnIndexOrThrow(FoodTable.COLUMN_FOOD_SODIUM)));
+					} while (cursor.moveToNext());
+				}
+				cursor.close();
+			}
+			
+		} while (dateCursor.moveToNext());
+		dateCursor.close();
 	}
-	
-	projection = new String[] {
-			PersonalInformationTable.COLUMN_MAX_CALORIES,
-			PersonalInformationTable.COLUMN_MAX_FATG,
-			PersonalInformationTable.COLUMN_MAX_CARBSG,
-			PersonalInformationTable.COLUMN_MAX_PROTEING,
-			PersonalInformationTable.COLUMN_MAX_FIBERG,
-			PersonalInformationTable.COLUMN_MAX_SFATG,
-			PersonalInformationTable.COLUMN_MAX_CHOLESTEROL,
-			PersonalInformationTable.COLUMN_MAX_SODIUM
-	};
 
-	int maxCalories = 0, 
-	maxFatGrams = 0, 
-	maxCarbsGrams = 0, 
-	maxProteinGrams = 0, 
-	maxFiberGrams = 0, 
-	maxSaturatedFatGrams = 0, 
-	maxCholesterol = 0, 
-	maxSodium = 0;
-	
-	cursor = context.getContentResolver().query(NutritionContentProvider.CONTENT_URI_PERSONAL, projection, null, null, null);
-	
-	if (cursor != null) {
-		cursor.moveToFirst();
-		
-		maxCalories = Integer.parseInt(cursor.getString(cursor.getColumnIndexOrThrow(PersonalInformationTable.COLUMN_MAX_CALORIES)));
-		maxFatGrams = Integer.parseInt(cursor.getString(cursor.getColumnIndexOrThrow(PersonalInformationTable.COLUMN_MAX_FATG)));
-		maxCarbsGrams = Integer.parseInt(cursor.getString(cursor.getColumnIndexOrThrow(PersonalInformationTable.COLUMN_MAX_CARBSG)));
-		maxProteinGrams = Integer.parseInt(cursor.getString(cursor.getColumnIndexOrThrow(PersonalInformationTable.COLUMN_MAX_PROTEING)));
-		maxFiberGrams = Integer.parseInt(cursor.getString(cursor.getColumnIndexOrThrow(PersonalInformationTable.COLUMN_MAX_FIBERG)));
-		maxSaturatedFatGrams = Integer.parseInt(cursor.getString(cursor.getColumnIndexOrThrow(PersonalInformationTable.COLUMN_MAX_SFATG)));
-		maxCholesterol = Integer.parseInt(cursor.getString(cursor.getColumnIndexOrThrow(PersonalInformationTable.COLUMN_MAX_CHOLESTEROL)));
-		maxSodium = Integer.parseInt(cursor.getString(cursor.getColumnIndexOrThrow(PersonalInformationTable.COLUMN_MAX_SODIUM)));
-
-		cursor.close();
-	}
 	
     List<double[]> values = new ArrayList<double[]>();
     values.add(new double[]{ calories, fatGrams, carbsGrams, proteinGrams, fiberGrams, saturatedFatGrams, cholesterol, sodium }); 
@@ -170,8 +198,8 @@ public class MeasurementsBarChart extends AbstractChart {
     XYMultipleSeriesRenderer renderer = buildBarRenderer(colors);
     renderer.setOrientation(Orientation.VERTICAL);
     
-    setChartSettings(renderer, "My Intake vs. Recommended Intake", "Measurements", "Units", 0.5,
-        12.5, 0, 3000, Color.GRAY, Color.LTGRAY);
+    setChartSettings(renderer, "My Intake vs. Recommended Intake (" + dateRange + ")", "Measurements", "Units", 0.5,
+        12.5, 0, maxCalories + 2000, Color.GRAY, Color.LTGRAY);
 
     renderer.setXLabels(1);
     renderer.setYLabels(10);

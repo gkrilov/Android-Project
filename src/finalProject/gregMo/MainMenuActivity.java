@@ -1,6 +1,7 @@
 package finalProject.gregMo;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.TimeZone;
 
@@ -9,6 +10,10 @@ import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageButton;
@@ -23,7 +28,6 @@ public class MainMenuActivity extends Activity implements OnClickListener {
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main_menu);
 		
@@ -41,6 +45,7 @@ public class MainMenuActivity extends Activity implements OnClickListener {
 		graph.setOnClickListener(this);
 		today.setOnClickListener(this);
 		
+		registerForContextMenu(graph);
 	}
 
     public void onClick(View v)
@@ -53,8 +58,7 @@ public class MainMenuActivity extends Activity implements OnClickListener {
     		startActivity(intent);
     		break;
     	case R.id.graph:
-    		intent = new MeasurementsBarChart().execute(this);
-    		startActivity(intent);
+    		openContextMenu(findViewById(R.id.graph));
     		break;
     	case R.id.daily:
     		intent.setClass(this, DailyInformationActivity.class);
@@ -113,4 +117,47 @@ public class MainMenuActivity extends Activity implements OnClickListener {
 	    }
     }
     
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
+    	super.onCreateContextMenu(menu, v, menuInfo);
+		menu.setHeaderTitle("How far back?");
+		menu.add(0, v.getId(), 0, "Just today");
+		menu.add(0, v.getId(), 1, "Past week");
+		menu.add(0, v.getId(), 2, "Past month");
+	}
+
+	@Override
+	public boolean onContextItemSelected(MenuItem item) {
+		if (item.getOrder() == 0) {
+    		Intent intent = new MeasurementsBarChart().execute(this, null, null);
+    		startActivity(intent);
+		} else if (item.getOrder() == 1) {
+			SimpleDateFormat date_format = new SimpleDateFormat("yyyyMMdd");
+			date_format.setTimeZone(TimeZone.getTimeZone("EST"));
+			
+			GregorianCalendar calendar = new GregorianCalendar();
+			String to = date_format.format(calendar.getTime());
+			calendar.add(Calendar.DATE, -7);
+			String from = date_format.format(calendar.getTime());
+			
+    		Intent intent = new MeasurementsBarChart().execute(this, from, to);
+    		startActivity(intent);
+		} else if (item.getOrder() == 2) {
+			SimpleDateFormat date_format = new SimpleDateFormat("yyyyMMdd");
+			date_format.setTimeZone(TimeZone.getTimeZone("EST"));
+			
+			GregorianCalendar calendar = new GregorianCalendar();
+			String to = date_format.format(calendar.getTime());
+			calendar.add(Calendar.DATE, -30);
+			String from = date_format.format(calendar.getTime());
+			
+    		Intent intent = new MeasurementsBarChart().execute(this, from, to);
+    		startActivity(intent);
+		}
+		else {
+			return false;
+		}
+		return true;
+	}
+
 }

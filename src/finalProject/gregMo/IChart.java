@@ -45,8 +45,10 @@ public interface IChart {
    * Executes the chart.
    * 
    * @param context the context
+   * @param from from date (yyyMMdd)
+   * @param to to date (yyyyMMdd)
    * @return the built intent
    */
-  Intent execute(Context context);
+  Intent execute(Context context, String from, String to);
 
 }
