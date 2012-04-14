@@ -132,11 +132,9 @@ public class TodayActivity extends Activity implements OnClickListener {
 			intent.putExtra("update", false);
 			startActivity(intent);
 			break;
-		//Should not have to pass anything in here and should be able to simply
-		//show a graph on the current daily table row (one where todays date is FK)
 		case R.id.graph:
-			//intent.setClass(this, graph_activity_here.java);
-			startActivity(intent);
+    		intent = new MeasurementsBarChart().execute(this, null, null);
+    		startActivity(intent);
 			break;
 		}
 		
