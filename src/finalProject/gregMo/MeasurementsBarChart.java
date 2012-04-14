@@ -96,8 +96,13 @@ public class MeasurementsBarChart extends AbstractChart {
 			Date fromDate = date_format.parse(from);
 			Date toDate = date_format.parse(to);
 
-			dateRange = date_format_short.format(fromDate) + " - " + date_format_short.format(toDate);
-			multiplier = ((toDate.getTime() - fromDate.getTime()) / (1000 * 60 * 60 * 24));
+			if (!fromDate.equals(toDate)) {
+				dateRange = date_format_short.format(fromDate) + " - " + date_format_short.format(toDate);
+				multiplier = ((toDate.getTime() - fromDate.getTime()) / (1000 * 60 * 60 * 24));
+			}
+			else {
+				dateRange = date_format_short.format(toDate);
+			}
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
