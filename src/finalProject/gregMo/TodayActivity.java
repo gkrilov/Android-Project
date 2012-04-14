@@ -133,7 +133,7 @@ public class TodayActivity extends Activity implements OnClickListener {
 			startActivity(intent);
 			break;
 		case R.id.graph:
-    		intent = new MeasurementsBarChart().execute(this, null, null);
+    		intent = new MeasurementsBarChart().execute(this, foodDate, foodDate);
     		startActivity(intent);
 			break;
 		}

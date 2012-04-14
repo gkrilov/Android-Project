@@ -101,7 +101,9 @@ public class MeasurementsBarChart extends AbstractChart {
 				multiplier = ((toDate.getTime() - fromDate.getTime()) / (1000 * 60 * 60 * 24));
 			}
 			else {
-				dateRange = date_format_short.format(toDate);
+				if (toDate.getDate() != new Date().getDate()) {
+					dateRange = date_format_short.format(toDate);
+				}
 			}
 		} catch (ParseException e) {
 			e.printStackTrace();
