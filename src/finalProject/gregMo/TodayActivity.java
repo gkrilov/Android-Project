@@ -3,10 +3,16 @@ package finalProject.gregMo;
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
+import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
@@ -66,6 +72,10 @@ public class TodayActivity extends Activity implements OnClickListener {
 		
 		food = (ListView) findViewById(R.id.foodList);
 		
+		fillData();
+	}
+
+	private void fillData() {
 		//Get a cursor for all food items which have a FK ID of the current daily ID
 		cursor = getContentResolver().query(NutritionContentProvider.CONTENT_URI_FOOD, null, 
 				FoodTable.COLUMN_DAILY_ID + " = '" + dailyID + "'", null, null);
@@ -98,6 +108,8 @@ public class TodayActivity extends Activity implements OnClickListener {
 						intent.putExtra("update", true);
 						startActivity(intent);
 				}});
+				
+				registerForContextMenu(food);
 			}
 			
 			//Otherwise create a blank adapter
@@ -113,7 +125,6 @@ public class TodayActivity extends Activity implements OnClickListener {
 			dateGraph.setOnClickListener(this);
 		}
 	}
-
 
 	@Override
 	protected void onStop() {
@@ -139,5 +150,29 @@ public class TodayActivity extends Activity implements OnClickListener {
 		}
 		
 	}
+	
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
+    	super.onCreateContextMenu(menu, v, menuInfo);
+		menu.setHeaderTitle("Are you sure you want to delete this item?");
+		menu.add(0, v.getId(), 0, "Yes");
+		menu.add(0, v.getId(), 1, "No");
+	}
+	
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+    	switch(item.getOrder()) {
+    	case 0:
+    		Log.d("D", foodDate);
+    		AdapterContextMenuInfo info = (AdapterContextMenuInfo)item.getMenuInfo();
+    		Uri uri = Uri.parse(NutritionContentProvider.CONTENT_URI_FOOD + "/" + info.id);
+    		getContentResolver().delete(uri, null, null);
+
+    		fillData();
+			
+    		return true;
+    	}
+    	return super.onContextItemSelected(item);
+    }
 	
 }

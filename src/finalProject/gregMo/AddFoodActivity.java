@@ -74,7 +74,7 @@ public class AddFoodActivity extends Activity {
 							food.put(FoodTable.COLUMN_DAILY_ID,  dailyID);
 							getContentResolver().insert(NutritionContentProvider.CONTENT_URI_FOOD, food);
 							alertDialog.setTitle("Item Added");
-							alertDialog.setMessage("The item has been successfully Added");
+							alertDialog.setMessage("The item has been successfully added");
 					}
 					else
 					{
